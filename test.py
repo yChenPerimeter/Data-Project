@@ -26,6 +26,7 @@ See options/base_options.py and options/test_options.py for more test options.
 See training and test tips at: https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/blob/master/docs/tips.md
 See frequently asked questions at: https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/blob/master/docs/qa.md
 """
+##!./scripts/test_pix2pix.sh python test.py --dataroot ./datasets/CNG --name CNG_pix2pix --model pix2pix --direction BtoA
 import os
 from options.test_options import TestOptions
 from data import create_dataset
