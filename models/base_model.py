@@ -140,7 +140,20 @@ class BaseModel(ABC):
             if isinstance(name, str):
                 errors_ret[name] = float(getattr(self, 'loss_' + name))  # float(...) works for both scalar tensor and float number
         return errors_ret
-
+    
+    def get_net(self):
+        """Get net and return."""
+        print('---------- Retrieving Networks -------------')
+        net_list = []
+        for name in self.model_names:
+            if isinstance(name, str):
+                net = getattr(self, 'net' + name, None)
+                if net:
+                    net_list.append(net)
+        if not net_list:
+            print("Warning: No networks found.")
+        return net_list
+    
     def save_networks(self, epoch):
         """Save all the networks to the disk.
 
