@@ -1,13 +1,17 @@
 """
 Code/original comment author : Mark
 Reviewer and additional Comment : Youwei
+"""
+
+"""
+Discussion Sept 01: 
 
 Compared original setting, 
 Unet paper and MONAI
 https://docs.monai.io/en/stable/_modules/monai/networks/nets/unet.html#UNet
 https://docs.monai.io/en/stable/_modules/monai/networks/blocks/convolutions.html
 
-MONAI wrong;
+
 
 Current settings: 
 1. to reduce parameters: not double convolution 
@@ -45,10 +49,14 @@ Current settings:
     Conclusion:
     1. Current settings and original settings have diff output size
     2. not only affect the spatial dimensions of the output tensor; it also affects the values 
-    3.Changing the stride from 1 to 2 means the kernel will be applied with larger gaps
+    3. Changing the stride from 1 to 2 means the kernel will be applied with larger gaps
     4. pad = 1 affect:The convolutional kernel can operate on these padded values, which can influence the output, especially at the edges of the tensor.
+    -> MONAI implementation wrong;
 """
 
+import torch
+from torch import nn
+from torch.nn import functional as F
 
 
 class conv_block(nn.Module):
@@ -97,9 +105,9 @@ class up_conv(nn.Module):
         return x
     
     
-class U_Net(nn.Module):
+class MarkUNet(nn.Module):
     def __init__(self,img_ch=3,output_ch=1):
-        super(U_Net,self).__init__()
+        super(MarkUNet,self).__init__()
         
         self.Maxpool = nn.MaxPool2d(kernel_size=(2,2), return_indices=True)
 
