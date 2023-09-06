@@ -24,7 +24,7 @@ from data import create_dataset
 from models import create_model
 from util.visualizer import Visualizer
 
-##python train.py --dataroot ./datasets/CNG --name CNG_pix2pix --model pix2pix --direction BtoA --preprocess none
+##python train.py --dataroot ./datasets/CNG --name testCNG_pix2pix --model pix2pix --direction BtoA --preprocess none
 if __name__ == '__main__':
     opt = TrainOptions().parse()   # get training options
     #TODO
