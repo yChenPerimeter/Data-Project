@@ -23,9 +23,19 @@ from options.train_options import TrainOptions
 from data import create_dataset
 from models import create_model
 from util.visualizer import Visualizer
+import wandb
 
-##python train.py --dataroot ./datasets/CNG --name testCNG_pix2pix --model pix2pix --direction BtoA --preprocess none
+
+##python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNG_Tomato_Air_pix2pix --model pix2pix --direction BtoA --preprocess none
 if __name__ == '__main__':
+    # 🐝 initialize a wandb run
+    wandb.init(
+        project="PixToPix_GAN",
+        name= "PixToPix unet128 MasterDS")
+    
+    
+    
+    
     opt = TrainOptions().parse()   # get training options
     #TODO
     print("generator of gan input: ", opt.netG )
@@ -62,6 +72,12 @@ if __name__ == '__main__':
             if total_iters % opt.print_freq == 0:    # print training losses and save logging information to the disk
                 losses = model.get_current_losses()
                 t_comp = (time.time() - iter_start_time) / opt.batch_size
+                
+                
+                # 🐝 log train_loss for each step to wandb， epoch_len = len(train_ds) // train_loader.batch_size， epoch_len * epoch + step
+                # 🐝 log train_loss averaged over epoch to wandb
+                wandb.log({"train loss": losses})
+            
                 visualizer.print_current_losses(epoch, epoch_iter, losses, t_comp, t_data)
                 if opt.display_id > 0:
                     visualizer.plot_current_losses(epoch, float(epoch_iter) / dataset_size, losses)

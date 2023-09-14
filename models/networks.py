@@ -536,9 +536,10 @@ class UnetSkipConnectionBlock(nn.Module):
             return self.model(x)
         else:   # add skip connections
             
-            
+            #TODO
             print("x", x.shape)
             print("model(x)",self.model(x).shape)
+            print("cat forward",torch.cat([x, self.model(x)], 1).shape)
 
             return torch.cat([x, self.model(x)], 1)
 
