@@ -31,10 +31,7 @@ if __name__ == '__main__':
     # 🐝 initialize a wandb run
     wandb.init(
         project="PixToPix_GAN",
-        name= "PixToPix unet128 MasterDS")
-    
-    
-    
+        name= "PixToPix unet128 MiniMasterDS")
     
     opt = TrainOptions().parse()   # get training options
     #TODO
