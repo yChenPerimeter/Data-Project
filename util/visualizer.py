@@ -87,6 +87,7 @@ class Visualizer():
                 self.create_visdom_connections()
 
         if self.use_wandb:
+            print("using wandb in  visualizer.py")
             self.wandb_run = wandb.init(project=self.wandb_project_name, name=opt.name, config=opt) if not wandb.run else wandb.run
             self.wandb_run._label(repo='CycleGAN-and-pix2pix')
 
@@ -253,5 +254,6 @@ class Visualizer():
             message += '%s: %.3f ' % (k, v)
 
         print(message)  # print the message
+        wandb.log({"train loss": losses})
         with open(self.log_name, "a") as log_file:
             log_file.write('%s\n' % message)  # save the message

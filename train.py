@@ -26,12 +26,12 @@ from util.visualizer import Visualizer
 import wandb
 
 
-##python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNG_Tomato_Air_pix2pix --model pix2pix --direction BtoA --preprocess none
+##python train.py --dataroot ./datasets/CNG_Tomato_Air --name Organics_pix2pix --model pix2pix --direction BtoA --preprocess none
 if __name__ == '__main__':
     # 🐝 initialize a wandb run
-    wandb.init(
-        project="PixToPix_GAN",
-        name= "PixToPix unet128 MiniMasterDS")
+    # wandb.init(
+    #     project="PixToPix_GAN",
+    #     name= "PixToPix unet256 MiniMasterDS")
     
     opt = TrainOptions().parse()   # get training options
     #TODO
@@ -73,7 +73,7 @@ if __name__ == '__main__':
                 
                 # 🐝 log train_loss for each step to wandb， epoch_len = len(train_ds) // train_loader.batch_size， epoch_len * epoch + step
                 # 🐝 log train_loss averaged over epoch to wandb
-                wandb.log({"train loss": losses})
+                #wandb.log({"train loss": losses})
             
                 visualizer.print_current_losses(epoch, epoch_iter, losses, t_comp, t_data)
                 if opt.display_id > 0:
