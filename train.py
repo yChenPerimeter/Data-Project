@@ -26,7 +26,10 @@ from util.visualizer import Visualizer
 import wandb
 
 
-##python train.py --dataroot ./datasets/CNG_Tomato_Air --name Organics_pix2pix --model pix2pix --direction BtoA --preprocess none
+# Make sure sett diff wanbd name each run
+##python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pix300E256Unet --model pix2pix --direction BtoA 
+#python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pix200E128Unet --model pix2pix --direction BtoA  --preprocess none
+#python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pix300E256Unet --model pix2pix --direction BtoA 
 if __name__ == '__main__':
     # 🐝 initialize a wandb run
     # wandb.init(

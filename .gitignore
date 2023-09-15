@@ -1,5 +1,7 @@
 .DS_Store
 debug*
+checkpoints_scripted/
+/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/CNGTA_pix2pix300E256Unet/checkpoints_scripted1.pt
 checkpoints_scripted.pt
 datasets/
 checkpoints/
