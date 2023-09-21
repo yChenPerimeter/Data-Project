@@ -27,6 +27,7 @@ See training and test tips at: https://github.com/junyanz/pytorch-CycleGAN-and-p
 See frequently asked questions at: https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix/blob/master/docs/qa.md
 """
 ##!./scripts/test_pix2pix.sh python test.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pix300E256Unet --model pix2pix --direction BtoA --epoch 250
+#python test.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pixEpoch120Resnet9  --model pix2pix  --preprocess none --netG resnet_9blocks --direction BtoA --epoch 70
 import os
 from options.test_options import TestOptions
 from data import create_dataset

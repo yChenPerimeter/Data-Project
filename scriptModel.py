@@ -11,7 +11,13 @@ from util.visualizer import Visualizer
 
 # Or torch.trace(), checkpoint version, .ptn script version.pt
 # python scriptModel.py --dataroot ./datasets/CNG --name CNG_pix2pix --model pix2pix --direction BtoA
-# python scriptModel.py --dataroot ./datasets/CNG_Tomato_Air  --name CNGTA_pix2pix300E256Unet --model pix2pix --direction BtoA
+
+# python scriptModel.py --dataroot ./datasets/CNG_Tomato_Air  --name CNGTA_pix2pix200EResnet6 --model pix2pix --direction BtoA --epoch latest
+# python scriptModel.py --dataroot ./datasets/CNG_Tomato_Air  --name CNGTA_pix2pix200EResnet6 --model pix2pix --direction BtoA --epoch 55
+# python scriptModel.py --dataroot ./datasets/CNG_Tomato_Air  --name CNGTA_pix2pixEpoch120Resnet9 --model pix2pix --direction BtoA --epoch 70  --preprocess none --netG resnet_9blocks 
+# python scriptModel.py --dataroot ./datasets/CNG_Tomato_Air  --name CNGTA_pix2pixEpoch120Resnet9 --model pix2pix --direction BtoA --epoch 140  --preprocess none --netG resnet_9blocks
+#python scriptModel.py --dataroot ./datasets/CNG_Tomato_Air  --name CNGTA_pix2pixEpoch200Unet128 --model pix2pix --direction BtoA --epoch latest --use_wandb False --netG unet_128
+# python scriptModel.py --dataroot ./datasets/CNG_Tomato_Air  --name CNGTA_pix2pixEp30_Resnet9_Layer2 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD n_layers --n_layers_D 2
 
 if __name__ == '__main__':
     opt = TestOptions().parse()  # get test options
@@ -47,5 +53,7 @@ if __name__ == '__main__':
     else:
         print("No networks found.")
 
+    f_name = opt.name
+    epo = str(opt.epoch)
     #convert to a scripted model
-    scripted_modelD.save('/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/CNGTA_pix2pix300E256Unet/checkpoints_scripted1.pt')
+    scripted_modelD.save(f'/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/{f_name}/checkpoints_scripted{epo}.pt')

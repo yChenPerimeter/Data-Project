@@ -25,11 +25,20 @@ from models import create_model
 from util.visualizer import Visualizer
 import wandb
 
-
+"""
+ It assumes that the directory '/path/to/data/train' contains image pairs in the form of {A,B}.
+    During test time, you need to prepare a directory '/path/to/data/test'.
+"""
 # Make sure sett diff wanbd name each run
 ##python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pix300E256Unet --model pix2pix --direction BtoA 
-#python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pix200E128Unet --model pix2pix --direction BtoA  --preprocess none
 #python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pix300E256Unet --model pix2pix --direction BtoA 
+#python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pixEpoch140Resnet6 --model pix2pix --direction BtoA  --preprocess none
+#python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pixEpoch120Resnet9 --model pix2pix --direction BtoA  --preprocess none --netG resnet_9blocks
+#python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pixEpoch200Unet128 --model pix2pix --direction BtoA --netG unet_128
+#python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pixEp30_Resnet9_Layer2 --model pix2pix --direction BtoA  --preprocess none --netG resnet_9blocks --netD n_layers --n_layers_D 2
+#python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pixEp30_Resnet9_Layer4 --model pix2pix --direction BtoA  --preprocess none --netG resnet_9blocks --netD n_layers --n_layers_D 4
+# python train.py --dataroot ./datasets/CNG_Tomato_Air  --name CNGTA_p2pEp30_Resnet9_pixel_initType_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming
+# python train.py --dataroot ./datasets/CNG_Tomato_Air_GingerDiakon --name CNGTAGD_p2pEp30_Resnet9_pixel_initType_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming
 if __name__ == '__main__':
     # 🐝 initialize a wandb run
     # wandb.init(
@@ -47,7 +56,8 @@ if __name__ == '__main__':
     model.setup(opt)               # regular setup: load and print networks; create schedulers
     visualizer = Visualizer(opt)   # create a visualizer that display/save images and plots
     total_iters = 0                # the total number of training iterations
-
+    # TODO model contained in train loop, while wandb init in virtulizer
+    # wandb.watch(model, log="all", log_freq=100)
     for epoch in range(opt.epoch_count, opt.n_epochs + opt.n_epochs_decay + 1):    # outer loop for different epochs; we save the model by <epoch_count>, <epoch_count>+<save_latest_freq>
         epoch_start_time = time.time()  # timer for entire epoch
         iter_data_time = time.time()    # timer for data loading per iteration
