@@ -18,6 +18,15 @@ from util.visualizer import Visualizer
 # python scriptModel.py --dataroot ./datasets/CNG_Tomato_Air  --name CNGTA_pix2pixEpoch120Resnet9 --model pix2pix --direction BtoA --epoch 140  --preprocess none --netG resnet_9blocks
 #python scriptModel.py --dataroot ./datasets/CNG_Tomato_Air  --name CNGTA_pix2pixEpoch200Unet128 --model pix2pix --direction BtoA --epoch latest --use_wandb False --netG unet_128
 # python scriptModel.py --dataroot ./datasets/CNG_Tomato_Air  --name CNGTA_pix2pixEp30_Resnet9_Layer2 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD n_layers --n_layers_D 2
+# python scriptModel.py --dataroot ./datasets/CNG_Tomato_Air_GingerDiakon --name CNGTAGD_p2pEp30_Resnet9_pixel_initType_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming
+# python scriptModel.py --dataroot ./datasets/CNG_MoreTomato_Air --name CNG4TA_p2pEp30_Resnet9_pixel_initType_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming
+
+# python scriptModel.py --dataroot ./datasets/CNG_5000Tomato_Air --name CNG5000TA_p2pEp40_Resnet9_pixel_initType_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming 
+
+# python scriptModel.py --dataroot ./datasets/GingerWAD_CNG5Ktomato --name OrganicsAirWedges_p2pEp80_Resnet9_pixel_Kaiming --model pix2pix --direction BtoA --epoch 70  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming 
+
+# python scriptModel.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name 7kOrganics_p2pEp30_Resnet9_pixel_KaimingLr15 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming 
+
 
 if __name__ == '__main__':
     opt = TestOptions().parse()  # get test options
@@ -56,4 +65,4 @@ if __name__ == '__main__':
     f_name = opt.name
     epo = str(opt.epoch)
     #convert to a scripted model
-    scripted_modelD.save(f'/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/{f_name}/checkpoints_scripted{epo}.pt')
+    scripted_modelD.save(f'/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/{f_name}/{f_name}_checkpoints_scripted{epo}.pt')

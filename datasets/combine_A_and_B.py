@@ -29,16 +29,26 @@ parser = argparse.ArgumentParser('create image pairs')
 
 #parser.add_argument('--fold_A', dest='fold_A', help='input directory for image A', type=str, default='../dataset/50kshoes_edges')
 # parser.add_argument('--fold_A', dest='fold_A', help='input directory for image A', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/A_B/Grape_A_B/8x')
-parser.add_argument('--fold_A', dest='fold_A', help='input directory for image A', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/A_B/OrganicsNPL_Air_A_B/8x')
+# parser.add_argument('--fold_A', dest='fold_A', help='input directory for image A', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/A_B/OrganicsNPL_Air_A_B/8x')
+# parser.add_argument('--fold_A', dest='fold_A', help='input directory for image A', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/A_B/Mark_sample/1x')
+#parser.add_argument('--fold_A', dest='fold_A', help='input directory for image A', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/A_B/OrganicsNPL_Air_A_B/8x')
+parser.add_argument('--fold_A', dest='fold_A', help='input directory for image A', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/MarkA_B/Mark_denoise/test')
+
 
 
 #parser.add_argument('--fold_B', dest='fold_B', help='input directory for image B', type=str, default='../dataset/50kshoes_jpg')
 #parser.add_argument('--fold_B', dest='fold_B', help='input directory for image B', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/A_B/Grape_A_B/1x')
-parser.add_argument('--fold_B', dest='fold_B', help='input directory for image B', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/A_B/OrganicsNPL_Air_A_B/1x')
+#parser.add_argument('--fold_B', dest='fold_B', help='input directory for image B', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/A_B/OrganicsNPL_Air_A_B/1x')
+#parser.add_argument('--fold_B', dest='fold_B', help='input directory for image B', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/A_B/Mark_sample/1x-copy')
+#parser.add_argument('--fold_B', dest='fold_B', help='input directory for image B', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/A_B/OrganicsNPL_Air_A_B/1x')
+parser.add_argument('--fold_B', dest='fold_B', help='input directory for image B', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/MarkA_B/Mark_denoise/test-redundent')
 
-parser.add_argument('--fold_AB', dest='fold_AB', help='output directory', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/CNG_Tomato_Air_GingerDiakon/train')
 
-parser.add_argument('--num_imgs', dest='num_imgs', help='number of images', type=int, default=5000)
+
+#parser.add_argument('--fold_AB', dest='fold_AB', help='output directory', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/2kGWAD_CNG5Ktomato/train')
+parser.add_argument('--fold_AB', dest='fold_AB', help='output directory', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/synthesis_data/test')
+
+parser.add_argument('--num_imgs', dest='num_imgs', help='number of images', type=int, default=10000)
 parser.add_argument('--use_AB', dest='use_AB', help='if true: (0001_A, 0001_B) to (0001_AB)', action='store_true')
 parser.add_argument('--no_multiprocessing', dest='no_multiprocessing', help='If used, chooses single CPU execution instead of parallel execution', action='store_true',default=False)
 args = parser.parse_args()

@@ -26,8 +26,7 @@ from util.visualizer import Visualizer
 import wandb
 
 """
- It assumes that the directory '/path/to/data/train' contains image pairs in the form of {A,B}.
-    During test time, you need to prepare a directory '/path/to/data/test'.
+ It assumes that the directory '/path/to/data/train' contains image pairs in the form of {A,B}. During test time, you need to prepare a directory '/path/to/data/test'.
 """
 # Make sure sett diff wanbd name each run
 ##python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pix300E256Unet --model pix2pix --direction BtoA 
@@ -39,6 +38,19 @@ import wandb
 #python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pixEp30_Resnet9_Layer4 --model pix2pix --direction BtoA  --preprocess none --netG resnet_9blocks --netD n_layers --n_layers_D 4
 # python train.py --dataroot ./datasets/CNG_Tomato_Air  --name CNGTA_p2pEp30_Resnet9_pixel_initType_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming
 # python train.py --dataroot ./datasets/CNG_Tomato_Air_GingerDiakon --name CNGTAGD_p2pEp30_Resnet9_pixel_initType_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming
+
+# training image 1570, 30 epoch , 
+#python train.py --dataroot ./datasets/CNG_MoreTomato_Air --name CNG4TA_p2pEp30_Resnet9_pixel_initType_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming
+
+# train img 5200 images, 40 epoch
+# python train.py --dataroot ./datasets/CNG_5000Tomato_Air --name CNG5000TA_p2pEp40_Resnet9_pixel_initType_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 20 --n_epochs_decay 20 
+
+#train img 5500 images, 80 epoch
+# python train.py --dataroot ./datasets/GingerWAD_CNG5Ktomato --name OrganicsAirWedges_p2pEp80_Resnet9_pixel_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 40 --n_epochs_decay 40 
+# python train.py --dataroot ./datasets/GingerWAD_CNG5Ktomato --name OrganicsAirWedges_p2pEp80_Resnet9_pixel_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 40 --n_epochs_decay 40 
+
+#Train Image 40% non tomato, 30 epoch, 6700 sum, 5k tomato
+#python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name 7kOrganics_p2pEp30_Resnet9_pixel_KaimingLr15 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.00015
 if __name__ == '__main__':
     # 🐝 initialize a wandb run
     # wandb.init(

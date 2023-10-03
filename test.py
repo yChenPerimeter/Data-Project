@@ -28,6 +28,16 @@ See frequently asked questions at: https://github.com/junyanz/pytorch-CycleGAN-a
 """
 ##!./scripts/test_pix2pix.sh python test.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pix300E256Unet --model pix2pix --direction BtoA --epoch 250
 #python test.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pixEpoch120Resnet9  --model pix2pix  --preprocess none --netG resnet_9blocks --direction BtoA --epoch 70
+
+
+# python test.py --dataroot /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/synthesis_data--name CNG5000TA_p2pEp40_Resnet9_pixel_initType_Kaiming  --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming
+# --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming
+
+
+# python test.py --dataroot /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/cGAN_synesis_input --name 7kOrganics_p2pEp30_Resnet9_pixel_KaimingLr15 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming 
+
+
+#/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints/CNG5000TA_p2pEp40_Resnet9_pixel_initType_Kaiming
 import os
 from options.test_options import TestOptions
 from data import create_dataset
@@ -54,9 +64,9 @@ if __name__ == '__main__':
     model.setup(opt)               # regular setup: load and print networks; create schedulers
 
     # initialize logger
-    if opt.use_wandb:
-        wandb_run = wandb.init(project=opt.wandb_project_name, name=opt.name, config=opt) if not wandb.run else wandb.run
-        wandb_run._label(repo='CycleGAN-and-pix2pix')
+    # if opt.use_wandb:
+    #     wandb_run = wandb.init(project=opt.wandb_project_name, name=opt.name, config=opt) if not wandb.run else wandb.run
+    #     wandb_run._label(repo='CycleGAN-and-pix2pix')
 
     # create a website
     web_dir = os.path.join(opt.results_dir, opt.name, '{}_{}'.format(opt.phase, opt.epoch))  # define the website directory
@@ -76,7 +86,8 @@ if __name__ == '__main__':
         model.test()           # run inference
         visuals = model.get_current_visuals()  # get image results
         img_path = model.get_image_paths()     # get image paths
-        if i % 5 == 0:  # save images to an HTML file
-            print('processing (%04d)-th image... %s' % (i, img_path))
-        save_images(webpage, visuals, img_path, aspect_ratio=opt.aspect_ratio, width=opt.display_winsize, use_wandb=opt.use_wandb)
+        # if i % 5 == 0:  # save images to an HTML file
+        print('processing (%04d)-th image... %s' % (i, img_path))
+        #save_images(webpage, visuals, img_path, aspect_ratio=opt.aspect_ratio, width=opt.display_winsize, use_wandb=opt.use_wandb)
+        save_images(webpage, visuals, img_path, aspect_ratio=opt.aspect_ratio, width=opt.display_winsize, use_wandb=False)
     webpage.save()  # save the HTML

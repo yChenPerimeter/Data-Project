@@ -31,6 +31,9 @@ def save_images(webpage, visuals, image_path, aspect_ratio=1.0, width=256, use_w
     This function will save images stored in 'visuals' to the HTML file specified by 'webpage'.
     """
     image_dir = webpage.get_image_dir()
+    source_seq = os.path.dirname(image_path[0])
+    partent_source_dir =  os.path.basename(source_seq)
+    # print( os.path.basename(source_seq))
     short_path = ntpath.basename(image_path[0])
     name = os.path.splitext(short_path)[0]
 
@@ -40,7 +43,13 @@ def save_images(webpage, visuals, image_path, aspect_ratio=1.0, width=256, use_w
     for label, im_data in visuals.items():
         im = util.tensor2im(im_data)
         image_name = '%s_%s.png' % (name, label)
-        save_path = os.path.join(image_dir, image_name)
+        
+        
+        #save_path = os.path.join(image_dir, image_name)
+        if not os.path.exists(os.path.join(image_dir, partent_source_dir)):
+            os.makedirs(os.path.join(image_dir, partent_source_dir))
+        save_path = os.path.join(image_dir, partent_source_dir,image_name)
+        print(save_path)
         util.save_image(im, save_path, aspect_ratio=aspect_ratio)
         ims.append(image_name)
         txts.append(label)
