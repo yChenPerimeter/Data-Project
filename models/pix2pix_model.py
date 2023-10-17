@@ -70,7 +70,7 @@ class Pix2PixModel(BaseModel):
             self.criterionGAN = networks.GANLoss(opt.gan_mode).to(self.device)
             
             # self.loss_mode = opt.loss
-            if (self.loss_mode== "l2"):
+            if (self.opt.loss== "l2"):
                 self.criterionL2 = torch.nn.MSELoss()
             else:
                 self.criterionL1 = torch.nn.L1Loss()
@@ -120,8 +120,8 @@ class Pix2PixModel(BaseModel):
         # Second, G(A) = B
         if (self.opt.loss == "l2"):
             #TODO current weight is 100
-            self.loss_G_L2 = self.criterionL1(self.fake_B, self.real_B) * self.opt.lambda_L1
-            self.loss_G = self.loss_G_GAN + self.loss_G_L2
+            self.loss_G_L1 = self.criterionL2(self.fake_B, self.real_B) * self.opt.lambda_L1
+            self.loss_G = self.loss_G_GAN + self.loss_G_L1
         else:
         
             self.loss_G_L1 = self.criterionL1(self.fake_B, self.real_B) * self.opt.lambda_L1

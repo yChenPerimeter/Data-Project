@@ -33,7 +33,7 @@ class TrainOptions(BaseOptions):
         #0.0002, 0.0001
         parser.add_argument('--lr', type=float, default=0.0002, help='initial learning rate for adam')
         parser.add_argument('--gan_mode', type=str, default='lsgan', help='the type of GAN objective. [vanilla| lsgan | wgangp]. vanilla GAN loss is the cross-entropy objective used in the original GAN paper.')
-        parser.add_argument("--loss",  type=str, default='l2', help='the type of cGAN  Loss affect pixTopix GAN. [l1| l2 | SSIM]' )
+        parser.add_argument("--loss",  type=str, default='l1', help='the type of cGAN  Loss affect pixTopix GAN. [l1| l2 | SSIM]' )
         
         parser.add_argument('--pool_size', type=int, default=50, help='the size of image buffer that stores previously generated images')
         parser.add_argument('--lr_policy', type=str, default='linear', help='learning rate policy. [linear | step | plateau | cosine]')

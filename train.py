@@ -29,6 +29,9 @@ import wandb
  It assumes that the directory '/path/to/data/train' contains image pairs in the form of {A,B}. During test time, you need to prepare a directory '/path/to/data/test'.
 """
 # Make sure sett diff wanbd name each run
+"""
+Traing history log on cGAN architchure 
+
 ##python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pix300E256Unet --model pix2pix --direction BtoA 
 #python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pix300E256Unet --model pix2pix --direction BtoA 
 #python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pixEpoch140Resnet6 --model pix2pix --direction BtoA  --preprocess none
@@ -51,6 +54,24 @@ import wandb
 
 #Train Image 40% non tomato, 30 epoch, 6700 sum, 5k tomato
 #python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name 7kOrganics_p2pEp30_Resnet9_pixel_KaimingLr15 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.00015
+
+"""
+
+"""
+Traing history log on cGAN architchure new loss experiment
+#Train Image 40% non tomato, 30 epoch, 6700 sum, 5k tomato
+#python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name L2lossExperiment_on7kData --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 20 --n_epochs_decay 20  --lr 0.0002 --loss l2 --wandb_project_name newloss_cGAN
+#python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name L2lossExperiment_on7kData_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0001 --loss l2 --wandb_project_name newloss_cGAN
+
+"""
+
+"""
+Traing history log on cGAN architchure , on diff batchsize experiment
+#Train Image 40% non tomato, 30 epoch, 6700 sum, 5k tomato
+#python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name L2lossExperiment_on7kData --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 20 --n_epochs_decay 20  --lr 0.0002 --loss l2 --wandb_project_name newloss_cGAN
+#python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name L2lossExperiment_on7kData_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0001 --loss l2 --wandb_project_name newloss_cGAN
+
+"""
 if __name__ == '__main__':
     # 🐝 initialize a wandb run
     # wandb.init(
