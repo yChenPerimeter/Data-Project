@@ -126,7 +126,7 @@ class Pix2PixModel(BaseModel):
         self.loss_G_GAN = self.criterionGAN(pred_fake, True)
         # Second, G(A) = B
         if (self.opt.loss == "l2"):
-            #TODO current weight is 100, but we  gonna times 100(lambda_L1) here anymore, since in libary need to  been scaled to range value(-1,1)
+            #TODO current weight is 100, but we  gonna times 100(lambda_L1) here anymore, since in libary need to  been scaled to range value(-1,1), i.e 0.012 is hard to read, so, 1.2 is eaizer
             self.loss_G_L1 = self.criterionL2(self.fake_B, self.real_B) * self.opt.lambda_L1
             self.loss_G = self.loss_G_GAN + self.loss_G_L1
         elif(self.opt.loss == "ssim"):
