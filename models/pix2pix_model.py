@@ -1,6 +1,8 @@
 import torch
+import pytorch_msssim
 from .base_model import BaseModel
 from . import networks
+
 
 
 class Pix2PixModel(BaseModel):
@@ -72,6 +74,11 @@ class Pix2PixModel(BaseModel):
             # self.loss_mode = opt.loss
             if (self.opt.loss== "l2"):
                 self.criterionL2 = torch.nn.MSELoss()
+            elif (self.opt.loss =="ssim"):
+            # we assume datarange is 255, as  u should change here,when u have different range.  as L the dynamic range of the pixel-values in SSIM equation, 
+                self.criterionSSIM = pytorch_msssim.SSIM(channel=  self.opt.output_nc, data_range = 2**self.opt.data_bit )
+            elif(self.opt.loss =="mssim"):
+                self.criterionMSSIM = pytorch_msssim.MS_SSIM(channel=  self.opt.output_nc, data_range = 2**self.opt.data_bit )
             else:
                 self.criterionL1 = torch.nn.L1Loss()
             # initialize optimizers; schedulers will be automatically created by function <BaseModel.setup>.
@@ -119,8 +126,22 @@ class Pix2PixModel(BaseModel):
         self.loss_G_GAN = self.criterionGAN(pred_fake, True)
         # Second, G(A) = B
         if (self.opt.loss == "l2"):
-            #TODO current weight is 100
+            #TODO current weight is 100, but we  gonna times 100(lambda_L1) here anymore, since in libary need to  been scaled to range value(-1,1)
             self.loss_G_L1 = self.criterionL2(self.fake_B, self.real_B) * self.opt.lambda_L1
+            self.loss_G = self.loss_G_GAN + self.loss_G_L1
+        elif(self.opt.loss == "ssim"):
+            # ssim_val = self.criterionSSIM(X = self.fake_B, Y = self.real_B)
+            # print("ssim value: ",ssim_val )
+            
+            # As SSIM is the higher the better, so we do the reverse, 
+            self.loss_G_L1 =(1 - self.criterionSSIM(self.fake_B, self.real_B)) * self.opt.lambda_L1
+            self.loss_G = self.loss_G_GAN + self.loss_G_L1
+        elif(self.opt.loss == "mssim"):
+            # mssim_val = self.criterionMSSIM(self.fake_B, self.real_B)
+            # print("mssim value: ",mssim_val )
+            
+            # As SSIM is the higher the better, so we do the reverse
+            self.loss_G_L1 = (1 - self.criterionSSIM(self.fake_B, self.real_B)) * self.opt.lambda_L1
             self.loss_G = self.loss_G_GAN + self.loss_G_L1
         else:
         
