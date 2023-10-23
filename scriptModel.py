@@ -31,6 +31,8 @@ from util.visualizer import Visualizer
 New loss, 
 # python scriptModel.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name L2lossExperiment_on7kData --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming  --wandb_project_name newloss_cGAN
 # python scriptModel.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name L2lossExperiment_on7kData_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming  --wandb_project_name newloss_cGAN
+
+python scriptModel.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name mssim_l1_bExperiment_on7kData_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming  --wandb_project_name newloss_cGAN
 """
 if __name__ == '__main__':
     opt = TestOptions().parse()  # get test options
@@ -59,6 +61,8 @@ if __name__ == '__main__':
         lns = len(nets)
         print(f'----------  Networks number:{lns} -------------')
         first_net = nets[0]
+        
+        # We can torch_tensort.compile(model,input = [],enabled_precisions = torch.half")
         if isinstance(first_net, torch.nn.DataParallel):
             scripted_modelD = torch.jit.script(first_net.module)  # Access the underlying module of DataParallel
         else:
@@ -70,5 +74,7 @@ if __name__ == '__main__':
     epo = str(opt.epoch)
     #convert to a scripted model
 
+
     #scripted_modelD.save(f'/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/{f_name}/{f_name}_checkpoints_scripted{epo}.pt')
-    scripted_modelD.save(f'/home/david/Projects/de_noise/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/{f_name}/{f_name}_checkpoints_scripted{epo}.pt')
+    # scripted_modelD.save(f'/home/david/Projects/de_noise/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/{f_name}/{f_name}_checkpoints_scripted{epo}.pt')
+    scripted_modelD.save(f'/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/{f_name}/{f_name}_checkpoints_scripted{epo}.pt')

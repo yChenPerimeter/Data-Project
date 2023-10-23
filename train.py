@@ -60,10 +60,25 @@ Traing history log on cGAN architchure
 """
 Traing history log on cGAN architchure new loss experiment
 #Train Image 40% non tomato, 30 epoch, 6700 sum, 5k tomato
+
+L2
 #python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name L2lossExperiment_on7kData --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 20 --n_epochs_decay 20  --lr 0.0002 --loss l2 --wandb_project_name newloss_cGAN
 #python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name L2lossExperiment_on7kData_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0001 --loss l2 --wandb_project_name newloss_cGAN
 
+SSIM
 python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name SSIMlossExperiment_on7kData_lr20-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0002 --loss ssim --wandb_project_name newloss_cGAN 
+
+MSSIM
+python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name MSSIMlossExperiment_on7kData_lr20-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 10 --n_epochs_decay 10  --lr 0.0002 --loss mssim --wandb_project_name newloss_cGAN 
+
+ssim_l2_b
+python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name ssim_l2_bExperiment_on7kData_lr20-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0001 --loss ssim_l2_b --wandb_project_name newloss_cGAN 
+
+ssim_l1_b
+python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name ssim_l1_bExperiment_on7kData_lr20-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0001 --loss ssim_l1_b --wandb_project_name newloss_cGAN 
+
+mssim_l1_b
+python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name mssim_l1_bExperiment_on7kData_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 50 --n_epochs_decay 50  --lr 0.0001 --loss mssim_l1_b --wandb_project_name newloss_cGAN 
 """
 
 """

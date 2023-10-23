@@ -79,6 +79,18 @@ class Pix2PixModel(BaseModel):
                 self.criterionSSIM = pytorch_msssim.SSIM(channel=  self.opt.output_nc, data_range = 2**self.opt.data_bit )
             elif(self.opt.loss =="mssim"):
                 self.criterionMSSIM = pytorch_msssim.MS_SSIM(channel=  self.opt.output_nc, data_range = 2**self.opt.data_bit )
+            elif(self.opt.loss == "ssim_l1_b"):
+                self.criterionSSIM = pytorch_msssim.SSIM(channel=  self.opt.output_nc, data_range = 2**self.opt.data_bit )
+                self.criterionL1  = torch.nn.L1Loss()
+            elif(self.opt.loss == "mssim_l1_b"):
+                self.criterionMSSIM = pytorch_msssim.MS_SSIM(channel=  self.opt.output_nc, data_range = 2**self.opt.data_bit )
+                self.criterionL1  = torch.nn.L1Loss()
+            elif(self.opt.loss == "ssim_l2_b"):
+                self.criterionSSIM = pytorch_msssim.SSIM(channel=  self.opt.output_nc, data_range = 2**self.opt.data_bit )
+                self.criterionL2  = torch.nn.MSELoss()
+            elif(self.opt.loss == "mssim_l2_b"):
+                self.criterionMSSIM = pytorch_msssim.MS_SSIM(channel=  self.opt.output_nc, data_range = 2**self.opt.data_bit )
+                self.criterionL2  = torch.nn.MSELoss()
             else:
                 self.criterionL1 = torch.nn.L1Loss()
             # initialize optimizers; schedulers will be automatically created by function <BaseModel.setup>.
@@ -141,7 +153,28 @@ class Pix2PixModel(BaseModel):
             # print("mssim value: ",mssim_val )
             
             # As SSIM is the higher the better, so we do the reverse
-            self.loss_G_L1 = (1 - self.criterionSSIM(self.fake_B, self.real_B)) * self.opt.lambda_L1
+            self.loss_G_L1 = (1 - self.criterionMSSIM(self.fake_B, self.real_B)) * self.opt.lambda_L1
+            self.loss_G = self.loss_G_GAN + self.loss_G_L1
+        
+        elif (self.opt.loss=="ssim_l1_b"):
+            ssim_comp_A = (1 - self.criterionSSIM(self.fake_B, self.real_B))
+            l1_weighted_A = self.criterionL1(self.fake_B, self.real_B) 
+            self.loss_G_L1 = (0.84 * ssim_comp_A + (1-0.84) * l1_weighted_A ) * self.opt.lambda_L1
+            # combine loss and calculate gradients
+            self.loss_G = self.loss_G_GAN + self.loss_G_L1
+            
+        elif(self.opt.loss=="mssim_l1_b"):
+            mssim_comp_A =1 - self.criterionMSSIM(self.fake_B, self.real_B)
+            l1_weighted_A = self.criterionL1(self.fake_B, self.real_B) 
+            self.loss_G_L1 = (0.84 * mssim_comp_A + (1-0.84) * l1_weighted_A ) * self.opt.lambda_L1
+            # combine loss and calculate gradients
+            self.loss_G = self.loss_G_GAN + self.loss_G_L1
+        
+        elif (self.opt.loss=="ssim_l2_b"):
+            ssim_comp_A = (1 - self.criterionSSIM(self.fake_B, self.real_B))
+            l2_weighted_A = self.criterionL2(self.fake_B, self.real_B) 
+            self.loss_G_L1 = (0.84 * ssim_comp_A + (1-0.84) * l2_weighted_A ) * self.opt.lambda_L1
+            # combine loss and calculate gradients
             self.loss_G = self.loss_G_GAN + self.loss_G_L1
         else:
         
