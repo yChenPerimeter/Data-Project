@@ -79,6 +79,10 @@ python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name ssim_l1_bExperim
 
 mssim_l1_b
 python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name mssim_l1_bExperiment_on7kData_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 50 --n_epochs_decay 50  --lr 0.0001 --loss mssim_l1_b --wandb_project_name newloss_cGAN 
+
+
+mssim_l2_b
+python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name mssim_l2_bExperiment_on7kData_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 20 --n_epochs_decay 20  --lr 0.0001 --loss mssim_l2_b --wandb_project_name newloss_cGAN 
 """
 
 """

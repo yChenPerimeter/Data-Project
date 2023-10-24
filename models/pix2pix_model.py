@@ -176,6 +176,13 @@ class Pix2PixModel(BaseModel):
             self.loss_G_L1 = (0.84 * ssim_comp_A + (1-0.84) * l2_weighted_A ) * self.opt.lambda_L1
             # combine loss and calculate gradients
             self.loss_G = self.loss_G_GAN + self.loss_G_L1
+        
+        elif(self.opt.loss=="mssim_l2_b"):
+            mssim_comp_A =1 - self.criterionMSSIM(self.fake_B, self.real_B)
+            l2_weighted_A = self.criterionL2(self.fake_B, self.real_B) 
+            self.loss_G_L1 = (0.84 * mssim_comp_A + (1-0.84) * l2_weighted_A ) * self.opt.lambda_L1
+            # combine loss and calculate gradients
+            self.loss_G = self.loss_G_GAN + self.loss_G_L1
         else:
         
             self.loss_G_L1 = self.criterionL1(self.fake_B, self.real_B) * self.opt.lambda_L1
