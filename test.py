@@ -36,6 +36,7 @@ See frequently asked questions at: https://github.com/junyanz/pytorch-CycleGAN-a
 
 # python test.py --dataroot /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/cGAN_synesis_input --name 7kOrganics_p2pEp30_Resnet9_pixel_KaimingLr15 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming 
 
+#python test.py --dataroot /home/david/Projects/de_noise/pytorch-CycleGAN-and-pix2pix/datasets/syntheis_data --name 7kOrganics_p2pEp30_Resnet9_pixel_KaimingLr15 --model pix2pix --direction BtoA --epoch 23  --preprocess none --netG resnet_9blocks --netD pixel  
 
 #/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints/CNG5000TA_p2pEp40_Resnet9_pixel_initType_Kaiming
 import os

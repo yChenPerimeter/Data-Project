@@ -2,7 +2,7 @@ import torch
 import pytorch_msssim
 from .base_model import BaseModel
 from . import networks
-
+from .custom_loss import custom_loss, VGGPerceptualLoss
 
 
 class Pix2PixModel(BaseModel):
@@ -91,6 +91,8 @@ class Pix2PixModel(BaseModel):
             elif(self.opt.loss == "mssim_l2_b"):
                 self.criterionMSSIM = pytorch_msssim.MS_SSIM(channel=  self.opt.output_nc, data_range = 2**self.opt.data_bit )
                 self.criterionL2  = torch.nn.MSELoss()
+            elif (self.opt.loss == "vgg16"):
+                self.criterionVgg = VGGPerceptualLoss().to(self.device)
             else:
                 self.criterionL1 = torch.nn.L1Loss()
             # initialize optimizers; schedulers will be automatically created by function <BaseModel.setup>.
@@ -182,6 +184,9 @@ class Pix2PixModel(BaseModel):
             l2_weighted_A = self.criterionL2(self.fake_B, self.real_B) 
             self.loss_G_L1 = (0.84 * mssim_comp_A + (1-0.84) * l2_weighted_A ) * self.opt.lambda_L1
             # combine loss and calculate gradients
+            self.loss_G = self.loss_G_GAN + self.loss_G_L1
+        elif(self.opt.loss == "vgg16"):
+            self.loss_G_L1 = self.criterionVgg(self.fake_B , self.real_B)
             self.loss_G = self.loss_G_GAN + self.loss_G_L1
         else:
         
