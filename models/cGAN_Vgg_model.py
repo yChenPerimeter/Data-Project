@@ -1,3 +1,9 @@
+"""
+Author: Youwei Chen, modified from Previous Pix2PixModel
+"""
+
+
+
 import torch
 import pytorch_msssim
 from .base_model import BaseModel
@@ -5,13 +11,13 @@ from . import networks
 from .custom_loss import custom_loss, VGGPerceptualLoss
 
 
-class Pix2PixModel(BaseModel):
-    """ This class implements the pix2pix model, for learning a mapping from input images to output images given paired data.
+class cGANModel(BaseModel):
+    """ This class implements from the original pix2pix model, the difference by now is removed hard-code vanillel GAN
 
     The model training requires '--dataset_mode aligned' dataset.
-    By default, it uses a '--netG unet256' U-Net generator,
+    By default, it changed  '--netG ___' generator,
     a '--netD basic' discriminator (PatchGAN),
-    and a '--gan_mode' vanilla GAN loss (the cross-entropy objective used in the orignal GAN paper).
+    and a changed '--gan_mode'___ GAN loss
 
     pix2pix paper: https://arxiv.org/pdf/1611.07004.pdf
     """
@@ -28,14 +34,13 @@ class Pix2PixModel(BaseModel):
 
         For pix2pix, we do not use image buffer
         The training objective is: GAN Loss + lambda_L1 * ||G(A)-B||_1
-        By default, we use vanilla GAN loss, UNet with batchnorm, and aligned datasets.
         """
         # changing the default values to match the pix2pix paper (https://phillipi.github.io/pix2pix/)
         #changed TODO 
         #parser.set_defaults(norm='batch', netG='unet_256', dataset_mode='aligned')
         parser.set_defaults(norm='batch', dataset_mode='aligned')
         if is_train:
-            parser.set_defaults(pool_size=0, gan_mode='vanilla')
+            parser.set_defaults(pool_size=0)
             parser.add_argument('--lambda_L1', type=float, default=100.0, help='weight for L1 loss')
 
         return parser
@@ -93,7 +98,6 @@ class Pix2PixModel(BaseModel):
                 self.criterionL2  = torch.nn.MSELoss()
             elif (self.opt.loss == "vgg16"):
                 self.criterionVgg = VGGPerceptualLoss().to(self.device)
-            # Try to use the L1 + Vgg16 together
             else:
                 self.criterionL1 = torch.nn.L1Loss()
             # initialize optimizers; schedulers will be automatically created by function <BaseModel.setup>.
