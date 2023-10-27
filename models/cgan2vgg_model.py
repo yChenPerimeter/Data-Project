@@ -11,7 +11,7 @@ from . import networks
 from .custom_loss import custom_loss, VGGPerceptualLoss
 
 
-class cGANModel(BaseModel):
+class cGAN2VggModel(BaseModel):
     """ This class implements from the original pix2pix model, the difference by now is removed hard-code vanillel GAN
 
     The model training requires '--dataset_mode aligned' dataset.
@@ -40,7 +40,7 @@ class cGANModel(BaseModel):
         #parser.set_defaults(norm='batch', netG='unet_256', dataset_mode='aligned')
         parser.set_defaults(norm='batch', dataset_mode='aligned')
         if is_train:
-            parser.set_defaults(pool_size=0)
+            parser.set_defaults(pool_size=0, gan_mode='perceptual')
             parser.add_argument('--lambda_L1', type=float, default=100.0, help='weight for L1 loss')
 
         return parser
