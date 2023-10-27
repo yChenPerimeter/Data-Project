@@ -93,6 +93,7 @@ class Pix2PixModel(BaseModel):
                 self.criterionL2  = torch.nn.MSELoss()
             elif (self.opt.loss == "vgg16"):
                 self.criterionVgg = VGGPerceptualLoss().to(self.device)
+            # Try to use the L1 + Vgg16 together
             else:
                 self.criterionL1 = torch.nn.L1Loss()
             # initialize optimizers; schedulers will be automatically created by function <BaseModel.setup>.
