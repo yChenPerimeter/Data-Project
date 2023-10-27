@@ -30,7 +30,7 @@ import wandb
 """
 # Make sure sett diff wanbd name each run
 """
-Traing history log on cGAN architchure 
+Traing history log on cGAN architchure , Use Vanilla GAN
 
 ##python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pix300E256Unet --model pix2pix --direction BtoA 
 #python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pix300E256Unet --model pix2pix --direction BtoA 
@@ -40,6 +40,8 @@ Traing history log on cGAN architchure
 #python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pixEp30_Resnet9_Layer2 --model pix2pix --direction BtoA  --preprocess none --netG resnet_9blocks --netD n_layers --n_layers_D 2
 #python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pixEp30_Resnet9_Layer4 --model pix2pix --direction BtoA  --preprocess none --netG resnet_9blocks --netD n_layers --n_layers_D 4
 # python train.py --dataroot ./datasets/CNG_Tomato_Air  --name CNGTA_p2pEp30_Resnet9_pixel_initType_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming
+
+
 # python train.py --dataroot ./datasets/CNG_Tomato_Air_GingerDiakon --name CNGTAGD_p2pEp30_Resnet9_pixel_initType_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming
 
 # training image 1570, 30 epoch , 
@@ -58,7 +60,7 @@ Traing history log on cGAN architchure
 """
 
 """
-Traing history log on cGAN architchure new loss experiment
+Traing history log on cGAN architchure new loss experiment , Loss function so far: ganmode Use Vanilla GAN loss (the L2 loss objective ) + customize Loss = Over all loss update
 #Train Image 40% non tomato, 30 epoch, 6700 sum, 5k tomato
 
 L2

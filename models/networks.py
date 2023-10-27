@@ -235,6 +235,9 @@ class GANLoss(nn.Module):
             self.loss = nn.BCEWithLogitsLoss()
         elif gan_mode in ['wgangp']:
             self.loss = None
+        # the penalizer to Balanced perceptual GAN
+        elif gan_mode == 'perceptual':
+            self.loss = nn.L1Loss()
         else:
             raise NotImplementedError('gan mode %s not implemented' % gan_mode)
 
