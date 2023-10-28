@@ -104,7 +104,7 @@ cgan L1 + vgg16 with L1 loss , batchsize = 2
 python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name l1cGAN_Vgg16L1_7k2Data_lr10-4_batch2 --model cgan2vgg --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 30 --n_epochs_decay 30  --lr 0.0001 --loss vgg16 --batch_size 2 --gan_mode perceptual --wandb_project_name newloss_cGAN 
 
 cGAN L2 (lsgan) + vgg19 with L1 loss, batchsize = 4
-python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name l2cGAN_Vgg16L1_7k2Data_lr10-4_batch4 --model cgan2vgg --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 40 --n_epochs_decay 40  --lr 0.0001 --loss vgg16 --batch_size 4 --gan_mode lsgan --wandb_project_name newloss_cGAN 
+python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name l2cGAN_Vgg19L1_7k2Data_lr20-4_batch4 --model cgan2vgg --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 40 --n_epochs_decay 40  --lr 0.0002 --loss vgg19 --batch_size 4 --gan_mode lsgan --wandb_project_name newloss_cGAN 
 
 """
 

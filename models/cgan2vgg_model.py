@@ -9,6 +9,7 @@ import pytorch_msssim
 from .base_model import BaseModel
 from . import networks
 # from .custom_loss import custom_loss, VGGPerceptualLoss
+from .vgg_loss import VGGPerceptualLoss
 from .vgg19_loss import VGG19PerceptualLoss
 
 
@@ -98,6 +99,8 @@ class cGAN2VggModel(BaseModel):
                 self.criterionMSSIM = pytorch_msssim.MS_SSIM(channel=  self.opt.output_nc, data_range = 2**self.opt.data_bit )
                 self.criterionL2  = torch.nn.MSELoss()
             elif (self.opt.loss == "vgg16"):
+                self.criterionVgg = VGGPerceptualLoss().to(self.device)
+            elif (self.opt.loss == "vgg19"):
                 self.criterionVgg = VGG19PerceptualLoss().to(self.device)
             else:
                 self.criterionL1 = torch.nn.L1Loss()
@@ -192,6 +195,9 @@ class cGAN2VggModel(BaseModel):
             # combine loss and calculate gradients
             self.loss_G = self.loss_G_GAN + self.loss_G_L1
         elif(self.opt.loss == "vgg16"):
+            self.loss_G_L1 = self.criterionVgg(self.fake_B , self.real_B)
+            self.loss_G = self.loss_G_GAN + self.loss_G_L1
+        elif(self.opt.loss == "vgg19"):
             self.loss_G_L1 = self.criterionVgg(self.fake_B , self.real_B)
             self.loss_G = self.loss_G_GAN + self.loss_G_L1
         else:
