@@ -8,7 +8,8 @@ import torch
 import pytorch_msssim
 from .base_model import BaseModel
 from . import networks
-from .custom_loss import custom_loss, VGGPerceptualLoss
+# from .custom_loss import custom_loss, VGGPerceptualLoss
+from .vgg19_loss import VGG19PerceptualLoss
 
 
 class cGAN2VggModel(BaseModel):
@@ -33,7 +34,7 @@ class cGAN2VggModel(BaseModel):
             the modified parser.
 
         For pix2pix, we do not use image buffer
-        The training objective is: GAN Loss + lambda_L1 * ||G(A)-B||_1
+        The training objective is: GAN Loss(L1) + vgg16
         """
         # changing the default values to match the pix2pix paper (https://phillipi.github.io/pix2pix/)
         #changed TODO 
@@ -97,7 +98,7 @@ class cGAN2VggModel(BaseModel):
                 self.criterionMSSIM = pytorch_msssim.MS_SSIM(channel=  self.opt.output_nc, data_range = 2**self.opt.data_bit )
                 self.criterionL2  = torch.nn.MSELoss()
             elif (self.opt.loss == "vgg16"):
-                self.criterionVgg = VGGPerceptualLoss().to(self.device)
+                self.criterionVgg = VGG19PerceptualLoss().to(self.device)
             else:
                 self.criterionL1 = torch.nn.L1Loss()
             # initialize optimizers; schedulers will be automatically created by function <BaseModel.setup>.

@@ -86,15 +86,26 @@ python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name mssim_l1_bExperi
 mssim_l2_b
 python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name mssim_l2_bExperiment_on7kData_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 20 --n_epochs_decay 20  --lr 0.0001 --loss mssim_l2_b --wandb_project_name newloss_cGAN 
 
-vgg16
+
+cgan cross entropy+  vgg19 with 0.5*L1(output, target) + 0.5*ssim_loss
+Notice wandb wrong name actually, should be vgg19
 python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name vgg16_Experiment_on7kData_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0001 --loss vgg16 --wandb_project_name newloss_cGAN 
 """
 
 
 """
-Use L1 GanLoss 
-vgg16
+Use diff GanLoss 
+cgan L1 + vgg19 with  0.5*L1(output, target) + 0.5*ssim_loss, 
 python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name l1cGANVgg16_Experiment_on7kData_lr10-4 --model cgan2vgg --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0001 --loss vgg16 --gan_mode perceptual --wandb_project_name newloss_cGAN 
+
+
+
+cgan L1 + vgg16 with L1 loss , batchsize = 2
+python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name l1cGAN_Vgg16L1_7k2Data_lr10-4_batch2 --model cgan2vgg --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 30 --n_epochs_decay 30  --lr 0.0001 --loss vgg16 --batch_size 2 --gan_mode perceptual --wandb_project_name newloss_cGAN 
+
+cGAN L2 (lsgan) + vgg19 with L1 loss, batchsize = 4
+python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name l2cGAN_Vgg16L1_7k2Data_lr10-4_batch4 --model cgan2vgg --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 40 --n_epochs_decay 40  --lr 0.0001 --loss vgg16 --batch_size 4 --gan_mode lsgan --wandb_project_name newloss_cGAN 
+
 """
 
 

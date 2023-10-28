@@ -2,7 +2,8 @@ import torch
 import pytorch_msssim
 from .base_model import BaseModel
 from . import networks
-from .custom_loss import custom_loss, VGGPerceptualLoss
+# from .custom_loss import custom_loss, VGGPerceptualLoss
+from .vgg_loss import VGGPerceptualLoss
 
 
 class Pix2PixModel(BaseModel):
