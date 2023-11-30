@@ -34,6 +34,11 @@ New loss,
 
 python scriptModel.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name mssim_l1_bExperiment_on7kData_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming  --wandb_project_name newloss_cGAN
 """
+"""
+float
+
+python scriptModel.py --dataroot ./datasets/cGAN_input_float_2023114-Controled --name FloatTest_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming  --wandb_project_name Float_cGAN
+"""
 if __name__ == '__main__':
     opt = TestOptions().parse()  # get test options
     # hard-code some parameters for test

@@ -60,7 +60,7 @@ Traing history log on cGAN architchure , Use Vanilla GAN
 """
 
 """
-Traing history log on cGAN architchure new loss experiment , Loss function so far: ganmode Use Vanilla GAN loss (the L2 loss objective ) + customize Loss = Over all loss update
+Traing history log on cGAN architchure new loss experiment , Loss function so far: ganmode Use Vanilla GAN loss as orginal + customize Loss = Over all loss update
 #Train Image 40% non tomato, 30 epoch, 6700 sum, 5k tomato
 
 L2
@@ -103,8 +103,8 @@ python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name l1cGANVgg16_Expe
 cgan L1 + vgg16 with L1 loss , batchsize = 2
 python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name l1cGAN_Vgg16L1_7k2Data_lr10-4_batch2 --model cgan2vgg --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 30 --n_epochs_decay 30  --lr 0.0001 --loss vgg16 --batch_size 2 --gan_mode perceptual --wandb_project_name newloss_cGAN 
 
-cGAN L2 (lsgan) + vgg19 with L1 loss, batchsize = 4
-python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name l2cGAN_Vgg19L1_7k2Data_lr20-4_batch4 --model cgan2vgg --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 40 --n_epochs_decay 40  --lr 0.0002 --loss vgg19 --batch_size 4 --gan_mode lsgan --wandb_project_name newloss_cGAN 
+cGAN L2 (lsgan) + vgg19 with L1 loss, batchsize = 2
+python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name l2cGAN_Vgg19L1_7k2Data_lr20-4_batch2 --model cgan2vgg --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 40 --n_epochs_decay 40  --lr 0.0002 --loss vgg19 --batch_size 2 --gan_mode lsgan --wandb_project_name newloss_cGAN 
 
 """
 
@@ -116,6 +116,29 @@ Traing history log on cGAN architchure , on diff batchsize experiment
 #python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name L2lossExperiment_on7kData_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0001 --loss l2 --wandb_project_name newloss_cGAN
 
 """
+
+
+
+"""
+Training on Float sample 
+
+python train.py --dataroot ./datasets/cGAN_input_float_2023114 --name FloatTest_lr10-4 --model pix2pix --direction BtoA --epoch latest --batch_size 2 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0001 --loss l1 --wandb_project_name Float_cGAN
+python train.py --dataroot ./datasets/cGAN_input_float_2023114-Controled --name FloatTest_lr10-4 --model pix2pix --direction BtoA --epoch latest --batch_size 1 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0001 --loss l1 --wandb_project_name Float_cGAN
+"""
+
+"""
+Training on all dataset  
+python train.py --dataroot ./datasets/cGAN_input_float_2023114 --name FloatTest_lr10-3 --model pix2pix --direction BtoA --epoch latest --batch_size 2 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 30 --n_epochs_decay 30 --lr 0.001 --loss l1 --wandb_project_name Float_cGAN
+
+
+Training on v4 dataset
+python train.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-3 --model pix2pix --direction BtoA --epoch latest --batch_size 2 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 30 --n_epochs_decay 30 --lr 0.001 --loss l1 --wandb_project_name Float_cGAN
+
+python train.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-4 --model pix2pix --direction BtoA --epoch latest --batch_size 2 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 40 --n_epochs_decay 40 --lr 0.0001 --loss l1 --wandb_project_name Float_cGAN
+
+python train.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-5 --model pix2pix --direction BtoA --epoch latest --batch_size 2 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 40 --n_epochs_decay 40 --lr 0.00001 --loss l1 --wandb_project_name Float_cGAN
+"""
+
 if __name__ == '__main__':
     # 🐝 initialize a wandb run
     # wandb.init(

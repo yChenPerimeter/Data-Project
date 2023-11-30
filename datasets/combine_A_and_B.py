@@ -33,9 +33,9 @@ parser = argparse.ArgumentParser('create image pairs')
 # parser.add_argument('--fold_A', dest='fold_A', help='input directory for image A', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/A_B/Mark_sample/1x')
 #parser.add_argument('--fold_A', dest='fold_A', help='input directory for image A', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/A_B/OrganicsNPL_Air_A_B/8x')
 # parser.add_argument('--fold_A', dest='fold_A', help='input directory for image A', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/MarkA_B/Mark_denoise/test')
-parser.add_argument('--fold_A', dest='fold_A', help='input directory for image A', type=str, default='/home/david/Projects/de_noise/pytorch-CycleGAN-and-pix2pix/datasets/MarkA_B20231024/denoised_PNG/GT')
-
-
+#parser.add_argument('--fold_A', dest='fold_A', help='input directory for image A', type=str, default='/home/david/Projects/de_noise/pytorch-CycleGAN-and-pix2pix/datasets/MarkA_B20231024/denoised_PNG/GT')
+#parser.add_argument('--fold_A', dest='fold_A', help='input directory for image A', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/20231114Float_A_B/8x')
+parser.add_argument('--fold_A', dest='fold_A', help='input directory for image A', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/20231128Float_A_B_v4/test/8x')
 
 #parser.add_argument('--fold_B', dest='fold_B', help='input directory for image B', type=str, default='../dataset/50kshoes_jpg')
 #parser.add_argument('--fold_B', dest='fold_B', help='input directory for image B', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/A_B/Grape_A_B/1x')
@@ -43,14 +43,18 @@ parser.add_argument('--fold_A', dest='fold_A', help='input directory for image A
 #parser.add_argument('--fold_B', dest='fold_B', help='input directory for image B', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/A_B/Mark_sample/1x-copy')
 #parser.add_argument('--fold_B', dest='fold_B', help='input directory for image B', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/A_B/OrganicsNPL_Air_A_B/1x')
 #parser.add_argument('--fold_B', dest='fold_B', help='input directory for image B', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/MarkA_B/Mark_denoise/test-redundent')
-parser.add_argument('--fold_B', dest='fold_B', help='input directory for image B', type=str, default='/home/david/Projects/de_noise/pytorch-CycleGAN-and-pix2pix/datasets/MarkA_B20231024/denoised_PNG/input')
+#parser.add_argument('--fold_B', dest='fold_B', help='input directory for image B', type=str, default='/home/david/Projects/de_noise/pytorch-CycleGAN-and-pix2pix/datasets/MarkA_B20231024/denoised_PNG/input')
+# parser.add_argument('--fold_B', dest='fold_B', help='input directory for image B', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/20231114Float_A_B/1x')
+parser.add_argument('--fold_B', dest='fold_B', help='input directory for image B', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/20231128Float_A_B_v4/test/1x')
 
 #parser.add_argument('--fold_AB', dest='fold_AB', help='output directory', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/2kGWAD_CNG5Ktomato/train')
 #parser.add_argument('--fold_AB', dest='fold_AB', help='output directory', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/synthesis_data/test')
-parser.add_argument('--fold_AB', dest='fold_AB', help='output directory', type=str, default='/home/david/Projects/de_noise/pytorch-CycleGAN-and-pix2pix/datasets/syntheis_data/20231024_denoised')
+#parser.add_argument('--fold_AB', dest='fold_AB', help='output directory', type=str, default='/home/david/Projects/de_noise/pytorch-CycleGAN-and-pix2pix/datasets/syntheis_data/20231024_denoised')
+# parser.add_argument('--fold_AB', dest='fold_AB', help='output directory', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/cGAN_input_float_2023114/train')
+parser.add_argument('--fold_AB', dest='fold_AB', help='output directory', type=str, default='/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/cGAN_input_float_20231128_v4/test')
 
 
-parser.add_argument('--num_imgs', dest='num_imgs', help='number of images', type=int, default=100000)
+parser.add_argument('--num_imgs', dest='num_imgs', help='number of images', type=int, default=1000000)
 parser.add_argument('--use_AB', dest='use_AB', help='if true: (0001_A, 0001_B) to (0001_AB)', action='store_true')
 parser.add_argument('--no_multiprocessing', dest='no_multiprocessing', help='If used, chooses single CPU execution instead of parallel execution', action='store_true',default=False)
 args = parser.parse_args()
