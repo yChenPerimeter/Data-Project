@@ -38,6 +38,8 @@ python scriptModel.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name mssim_l1_b
 float
 
 python scriptModel.py --dataroot ./datasets/cGAN_input_float_2023114-Controled --name FloatTest_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming  --wandb_project_name Float_cGAN
+
+python3 scriptModel.py --dataroot /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-4_batch1 --model pix2pix --direction BtoA --epoch 8  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming  --wandb_project_name Float_cGAN
 """
 if __name__ == '__main__':
     opt = TestOptions().parse()  # get test options

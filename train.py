@@ -137,6 +137,11 @@ python train.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_Flo
 python train.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-4 --model pix2pix --direction BtoA --epoch latest --batch_size 2 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 40 --n_epochs_decay 40 --lr 0.0001 --loss l1 --wandb_project_name Float_cGAN
 
 python train.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-5 --model pix2pix --direction BtoA --epoch latest --batch_size 2 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 40 --n_epochs_decay 40 --lr 0.00001 --loss l1 --wandb_project_name Float_cGAN
+
+python train.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-4_batch1 --model pix2pix --direction BtoA --epoch latest --batch_size 1 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 30 --n_epochs_decay 30 --lr 0.0001 --loss l1 --wandb_project_name Float_cGAN
+
+Training on v4 dataset, with 1 channel aligned dataset
+python train.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-4_batch1 --model pix2pix --direction BtoA --epoch latest --batch_size 1 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 30 --n_epochs_decay 30 --lr 0.0001 --loss l1 --wandb_project_name Float_cGAN --dataset_mode aligned_grey
 """
 
 if __name__ == '__main__':

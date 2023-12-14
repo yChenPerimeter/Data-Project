@@ -2,7 +2,7 @@ import os
 from data.base_dataset import BaseDataset, get_params, get_transform
 from data.image_folder import make_dataset
 from PIL import Image
-
+import matplotlib.pyplot as plt
 
 class AlignedDataset(BaseDataset):
     """A dataset class for paired image dataset.
@@ -38,7 +38,14 @@ class AlignedDataset(BaseDataset):
         """
         # read a image given a random integer index
         AB_path = self.AB_paths[index]
+
+        #TODO chaning 
         AB = Image.open(AB_path).convert('RGB')
+        
+        # print("plt",AB_path)
+        AB = plt.imread(AB_path)
+  
+        # print( AB.shape)
         # split AB image into A and B
         w, h = AB.size
         w2 = int(w / 2)

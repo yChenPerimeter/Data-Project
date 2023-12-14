@@ -1,0 +1,362 @@
+/home/david/workingDIR/torch2.0.1/lib/python3.9/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/david/workingDIR/torch2.0.1/lib/python3.9/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=Inception_V3_Weights.IMAGENET1K_V1`. You can also use `weights=Inception_V3_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+initializing
+get the opt in generator of gan input:  resnet_9blocks
+----------------- Options ---------------
+             aspect_ratio: 1.0                           
+               batch_size: 1                             
+          checkpoints_dir: ./checkpoints                 
+                   crop_h: 672                           
+                crop_size: 1024                          
+                   crop_w: 1024                          
+                 data_bit: 8                             
+                 dataroot: /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/cGAN_input_float_20231128_v4	[default: None]
+             dataset_mode: aligned                       
+                direction: BtoA                          	[default: AtoB]
+          display_winsize: 256                           
+                    epoch: 2                             	[default: latest]
+                     eval: False                         
+                  gpu_ids: 0                             
+                init_gain: 0.02                          
+                init_type: normal                        
+                 input_nc: 1                             
+                  isTrain: False                         	[default: None]
+                   load_h: 672                           
+                load_iter: 0                             	[default: 0]
+                load_size: 1024                          
+                   load_w: 1024                          
+         max_dataset_size: inf                           
+                    model: pix2pix                       	[default: test]
+               n_layers_D: 3                             
+                     name: v4_FloatTest_lr10-4_batch1    	[default: PixToPix_unet256_MiniMasterDS]
+                      ndf: 64                            
+                     netD: pixel                         	[default: basic]
+                     netG: resnet_9blocks                	[default: resnet_6blocks]
+                      ngf: 64                            
+               no_dropout: False                         
+                  no_flip: False                         
+                     norm: batch                         
+                 num_test: 500000                        
+              num_threads: 4                             
+                output_nc: 1                             
+                    phase: test                          
+               preprocess: none                          	[default: resize_and_crop]
+              results_dir: ./results/                    
+           serial_batches: False                         
+                   suffix:                               
+                use_wandb: True                          
+                  verbose: False                         
+       wandb_project_name: CycleGAN-and-pix2pix          
+----------------- End -------------------
+dataset [AlignedDataset] was created
+generator of PixToPix in pix2pix_model.py :  resnet_9blocks
+initialize network with normal
+model [Pix2PixModel] was created
+loading the model from ./checkpoints/v4_FloatTest_lr10-4_batch1/2_net_G.pth
+---------- Networks initialized -------------
+[Network G] Total number of parameters : 11.371 M
+-----------------------------------------------
+creating web directory ./results/v4_FloatTest_lr10-4_batch1/test_2
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_1_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_1_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_1_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_10_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_10_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_10_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_11_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_11_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_11_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_12_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_12_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_12_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_13_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_13_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_13_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_14_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_14_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_14_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_15_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_15_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_15_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_16_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_16_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_16_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_17_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_17_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_17_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_18_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_18_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_18_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_19_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_19_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_19_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_2_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_2_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_2_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_20_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_20_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_20_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_21_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_21_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_21_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_22_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_22_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_22_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_23_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_23_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_23_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_24_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_24_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_24_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_25_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_25_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_25_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_26_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_26_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_26_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_27_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_27_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_27_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_28_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_28_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_28_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_29_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_29_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_29_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_3_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_3_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_3_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_30_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_30_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_30_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_31_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_31_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_31_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_32_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_32_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_32_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_33_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_33_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_33_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_34_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_34_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_34_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_35_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_35_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_35_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_36_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_36_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_36_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_37_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_37_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_37_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_38_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_38_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_38_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_39_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_39_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_39_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_4_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_4_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_4_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_40_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_40_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_40_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_41_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_41_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_41_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_42_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_42_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_42_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_43_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_43_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_43_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_44_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_44_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_44_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_45_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_45_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_45_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_46_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_46_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_46_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_47_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_47_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_47_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_48_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_48_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_48_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_49_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_49_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_49_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_5_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_5_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_5_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_50_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_50_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_50_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_6_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_6_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_6_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_7_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_7_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_7_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_8_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_8_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_8_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_9_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_9_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeA/average_A-scanAvg_9_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_1_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_1_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_1_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_10_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_10_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_10_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_11_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_11_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_11_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_12_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_12_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_12_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_13_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_13_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_13_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_14_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_14_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_14_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_15_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_15_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_15_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_16_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_16_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_16_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_17_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_17_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_17_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_18_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_18_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_18_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_19_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_19_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_19_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_2_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_2_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_2_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_20_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_20_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_20_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_21_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_21_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_21_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_22_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_22_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_22_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_23_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_23_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_23_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_24_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_24_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_24_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_25_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_25_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_25_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_26_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_26_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_26_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_27_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_27_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_27_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_28_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_28_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_28_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_29_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_29_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_29_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_3_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_3_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_3_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_30_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_30_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_30_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_31_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_31_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_31_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_32_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_32_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_32_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_33_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_33_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_33_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_34_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_34_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_34_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_35_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_35_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_35_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_36_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_36_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_36_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_37_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_37_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_37_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_38_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_38_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_38_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_39_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_39_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_39_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_4_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_4_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_4_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_40_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_40_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_40_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_41_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_41_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_41_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_42_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_42_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_42_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_43_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_43_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_43_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_44_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_44_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_44_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_45_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_45_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_45_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_46_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_46_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_46_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_47_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_47_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_47_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_48_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_48_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_48_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_49_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_49_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_49_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_5_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_5_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_5_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_50_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_50_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_50_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_6_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_6_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_6_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_7_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_7_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_7_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_8_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_8_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_8_real_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_9_real_A.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_9_fake_B.png
+./results/v4_FloatTest_lr10-4_batch1/test_2/images/grapeB/average_B-scanAvg_9_real_B.png
+FID: 10.993868512006589

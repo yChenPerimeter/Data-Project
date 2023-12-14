@@ -1,0 +1,50 @@
+initializing
+get the opt in generator of gan input:  resnet_9blocks
+----------------- Options ---------------
+             aspect_ratio: 1.0                           
+               batch_size: 1                             
+          checkpoints_dir: ./checkpoints                 
+                   crop_h: 672                           
+                crop_size: 1024                          
+                   crop_w: 1024                          
+                 data_bit: 8                             
+                 dataroot: /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/cGAN_input_float_20231128_v4	[default: None]
+             dataset_mode: aligned                       
+                direction: BtoA                          	[default: AtoB]
+          display_winsize: 256                           
+                    epoch: 11                            	[default: latest]
+                     eval: False                         
+                  gpu_ids: 0                             
+                init_gain: 0.02                          
+                init_type: normal                        
+                 input_nc: 1                             
+                  isTrain: False                         	[default: None]
+                   load_h: 672                           
+                load_iter: 0                             	[default: 0]
+                load_size: 1024                          
+                   load_w: 1024                          
+         max_dataset_size: inf                           
+                    model: pix2pix                       	[default: test]
+               n_layers_D: 3                             
+                     name: v4_FloatTest_lr10-4_batch1    	[default: PixToPix_unet256_MiniMasterDS]
+                      ndf: 64                            
+                     netD: pixel                         	[default: basic]
+                     netG: resnet_9blocks                	[default: resnet_6blocks]
+                      ngf: 64                            
+               no_dropout: False                         
+                  no_flip: False                         
+                     norm: batch                         
+                 num_test: 500000                        
+              num_threads: 4                             
+                output_nc: 1                             
+                    phase: test                          
+               preprocess: none                          	[default: resize_and_crop]
+              results_dir: ./results/                    
+           serial_batches: False                         
+                   suffix:                               
+                use_wandb: True                          
+                  verbose: False                         
+       wandb_project_name: CycleGAN-and-pix2pix          
+----------------- End -------------------
+dataset [AlignedDataset] was created
+generator of PixToPix in pix2pix_model.py :  resnet_9blocks
