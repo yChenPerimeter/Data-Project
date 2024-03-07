@@ -63,6 +63,8 @@ python test.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_Floa
 
 # Generate 8x images
 python test.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-4_batch1 --model pix2pix --direction AtoB --epoch 39  --preprocess none --netG resnet_9blocks --netD pixel --dataset_mode alignedCustmoized   
+
+python test.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-4_batch1 --model pix2pix --direction AtoB --epoch 39  --preprocess none --netG resnet_9blocks --netD pixel --dataset_mode alignedCustmoized  
 """
 
 #sys.exit(1)
@@ -207,7 +209,7 @@ if __name__ == '__main__':
         # if i % 5 == 0:  # save images to an HTML file
         
         
-        
+    
         
         #TODO net
         y = net.forward(data["B"].to(device))

@@ -112,7 +112,7 @@ class Pix2PixModel(BaseModel):
         The option 'direction' can be used to swap images in domain A and domain B.
         """
         AtoB = self.opt.direction == 'AtoB'
-        print(self.opt.direction)
+        # print(self.opt.direction)
         if AtoB:
             print("AtoB , swaping the input data")
         

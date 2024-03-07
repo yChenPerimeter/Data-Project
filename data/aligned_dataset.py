@@ -43,7 +43,7 @@ class AlignedDataset(BaseDataset):
         AB = Image.open(AB_path).convert('RGB')
         
         # print("plt",AB_path)
-        AB = plt.imread(AB_path)
+        # AB = plt.imread(AB_path)
   
         # print( AB.shape)
         # split AB image into A and B
