@@ -29,132 +29,11 @@ import wandb
  It assumes that the directory '/path/to/data/train' contains image pairs in the form of {A,B}. During test time, you need to prepare a directory '/path/to/data/test'.
 """
 # Make sure sett diff wanbd name each run
-"""
-Traing history log on cGAN architchure , Use Vanilla GAN
 
-##python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pix300E256Unet --model pix2pix --direction BtoA 
-#python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pix300E256Unet --model pix2pix --direction BtoA 
-#python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pixEpoch140Resnet6 --model pix2pix --direction BtoA  --preprocess none
-#python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pixEpoch120Resnet9 --model pix2pix --direction BtoA  --preprocess none --netG resnet_9blocks
-#python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pixEpoch200Unet128 --model pix2pix --direction BtoA --netG unet_128
-#python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pixEp30_Resnet9_Layer2 --model pix2pix --direction BtoA  --preprocess none --netG resnet_9blocks --netD n_layers --n_layers_D 2
-#python train.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pixEp30_Resnet9_Layer4 --model pix2pix --direction BtoA  --preprocess none --netG resnet_9blocks --netD n_layers --n_layers_D 4
-# python train.py --dataroot ./datasets/CNG_Tomato_Air  --name CNGTA_p2pEp30_Resnet9_pixel_initType_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming
-
-
-# python train.py --dataroot ./datasets/CNG_Tomato_Air_GingerDiakon --name CNGTAGD_p2pEp30_Resnet9_pixel_initType_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming
-
-# training image 1570, 30 epoch , 
-#python train.py --dataroot ./datasets/CNG_MoreTomato_Air --name CNG4TA_p2pEp30_Resnet9_pixel_initType_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming
-
-# train img 5200 images, 40 epoch
-# python train.py --dataroot ./datasets/CNG_5000Tomato_Air --name CNG5000TA_p2pEp40_Resnet9_pixel_initType_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 20 --n_epochs_decay 20 
-
-#train img 5500 images, 80 epoch
-# python train.py --dataroot ./datasets/GingerWAD_CNG5Ktomato --name OrganicsAirWedges_p2pEp80_Resnet9_pixel_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 40 --n_epochs_decay 40 
-# python train.py --dataroot ./datasets/GingerWAD_CNG5Ktomato --name OrganicsAirWedges_p2pEp80_Resnet9_pixel_Kaiming --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 40 --n_epochs_decay 40 
-
-#Train Image 40% non tomato, 30 epoch, 6700 sum, 5k tomato
-#python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name 7kOrganics_p2pEp30_Resnet9_pixel_KaimingLr15 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.00015
-
-"""
-
-"""
-Traing history log on cGAN architchure new loss experiment , Loss function so far: ganmode Use Vanilla GAN loss as orginal + customize Loss = Over all loss update
-#Train Image 40% non tomato, 30 epoch, 6700 sum, 5k tomato
-
-L2
-#python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name L2lossExperiment_on7kData --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 20 --n_epochs_decay 20  --lr 0.0002 --loss l2 --wandb_project_name newloss_cGAN
-#python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name L2lossExperiment_on7kData_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0001 --loss l2 --wandb_project_name newloss_cGAN
-
-SSIM
-python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name SSIMlossExperiment_on7kData_lr20-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0002 --loss ssim --wandb_project_name newloss_cGAN 
-
-MSSIM
-python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name MSSIMlossExperiment_on7kData_lr20-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 10 --n_epochs_decay 10  --lr 0.0002 --loss mssim --wandb_project_name newloss_cGAN 
-
-ssim_l2_b
-python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name ssim_l2_bExperiment_on7kData_lr20-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0001 --loss ssim_l2_b --wandb_project_name newloss_cGAN 
-
-ssim_l1_b
-python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name ssim_l1_bExperiment_on7kData_lr20-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0001 --loss ssim_l1_b --wandb_project_name newloss_cGAN 
-
-mssim_l1_b
-python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name mssim_l1_bExperiment_on7kData_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 50 --n_epochs_decay 50  --lr 0.0001 --loss mssim_l1_b --wandb_project_name newloss_cGAN 
-
-
-mssim_l2_b
-python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name mssim_l2_bExperiment_on7kData_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 20 --n_epochs_decay 20  --lr 0.0001 --loss mssim_l2_b --wandb_project_name newloss_cGAN 
-
-
-cgan cross entropy+  vgg19 with 0.5*L1(output, target) + 0.5*ssim_loss
-Notice wandb wrong name actually, should be vgg19
-python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name vgg16_Experiment_on7kData_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0001 --loss vgg16 --wandb_project_name newloss_cGAN 
-"""
-
-
-"""
-Use diff GanLoss 
-cgan L1 + vgg19 with  0.5*L1(output, target) + 0.5*ssim_loss, 
-python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name l1cGANVgg16_Experiment_on7kData_lr10-4 --model cgan2vgg --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0001 --loss vgg16 --gan_mode perceptual --wandb_project_name newloss_cGAN 
-
-
-
-cgan L1 + vgg16 with L1 loss , batchsize = 2
-python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name l1cGAN_Vgg16L1_7k2Data_lr10-4_batch2 --model cgan2vgg --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 30 --n_epochs_decay 30  --lr 0.0001 --loss vgg16 --batch_size 2 --gan_mode perceptual --wandb_project_name newloss_cGAN 
-
-cGAN L2 (lsgan) + vgg19 with L1 loss, batchsize = 2
-python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name l2cGAN_Vgg19L1_7k2Data_lr20-4_batch2 --model cgan2vgg --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 40 --n_epochs_decay 40  --lr 0.0002 --loss vgg19 --batch_size 2 --gan_mode lsgan --wandb_project_name newloss_cGAN 
-
-"""
-
-
-"""
-Traing history log on cGAN architchure , on diff batchsize experiment
-#Train Image 40% non tomato, 30 epoch, 6700 sum, 5k tomato
-#python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name L2lossExperiment_on7kData --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 20 --n_epochs_decay 20  --lr 0.0002 --loss l2 --wandb_project_name newloss_cGAN
-#python train.py --dataroot ./datasets/2kGWAD_CNG5Ktomato --name L2lossExperiment_on7kData_lr10-4 --model pix2pix --direction BtoA --epoch latest  --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0001 --loss l2 --wandb_project_name newloss_cGAN
-
-"""
-
-
-
-"""
-Training on Float sample 
-
-python train.py --dataroot ./datasets/cGAN_input_float_2023114 --name FloatTest_lr10-4 --model pix2pix --direction BtoA --epoch latest --batch_size 2 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0001 --loss l1 --wandb_project_name Float_cGAN
-python train.py --dataroot ./datasets/cGAN_input_float_2023114-Controled --name FloatTest_lr10-4 --model pix2pix --direction BtoA --epoch latest --batch_size 1 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 15 --n_epochs_decay 15  --lr 0.0001 --loss l1 --wandb_project_name Float_cGAN
-"""
-
-"""
-Training on all dataset  
-python train.py --dataroot ./datasets/cGAN_input_float_2023114 --name FloatTest_lr10-3 --model pix2pix --direction BtoA --epoch latest --batch_size 2 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 30 --n_epochs_decay 30 --lr 0.001 --loss l1 --wandb_project_name Float_cGAN
-
-
-Training on v4 dataset
-python train.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-3 --model pix2pix --direction BtoA --epoch latest --batch_size 2 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 30 --n_epochs_decay 30 --lr 0.001 --loss l1 --wandb_project_name Float_cGAN
-
-python train.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-4 --model pix2pix --direction BtoA --epoch latest --batch_size 2 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 40 --n_epochs_decay 40 --lr 0.0001 --loss l1 --wandb_project_name Float_cGAN
-
-python train.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-5 --model pix2pix --direction BtoA --epoch latest --batch_size 2 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 40 --n_epochs_decay 40 --lr 0.00001 --loss l1 --wandb_project_name Float_cGAN
-
-python train.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-4_batch1 --model pix2pix --direction BtoA --epoch latest --batch_size 1 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 30 --n_epochs_decay 30 --lr 0.0001 --loss l1 --wandb_project_name Float_cGAN
-
-Pytorch testing Training on v4 dataset: 20240123
-python train.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_cGAN_pytorch2.1.2_lrV2 --model pix2pix --direction BtoA --epoch latest --batch_size 1 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 20 --n_epochs_decay 20 --lr 0.00015 --loss l1 --wandb_project_name Float_cGAN
-
-Training on v4 dataset, with 1 channel aligned dataset(Under testing)
-python train.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-4_batch1_grey --model pix2pix --direction BtoA --epoch latest --batch_size 1 --preprocess none --netG resnet_9blocks --netD pixel  --init_type kaiming --n_epochs 30 --n_epochs_decay 30 --lr 0.0001 --loss l1 --wandb_project_name Float_cGAN --dataset_mode aligned_grey
-"""
 
 if __name__ == '__main__':
-    # 🐝 initialize a wandb run
-    # wandb.init(
-    #     project="PixToPix_GAN",
-    #     name= "PixToPix unet256 MiniMasterDS")
-    
+
     opt = TrainOptions().parse()   # get training options
-    #TODO
     print("generator of gan input: ", opt.netG )
     dataset = create_dataset(opt)  # create a dataset given opt.dataset_mode and other options
     dataset_size = len(dataset)    # get the number of images in the dataset.
@@ -191,11 +70,6 @@ if __name__ == '__main__':
                 losses = model.get_current_losses()
                 t_comp = (time.time() - iter_start_time) / opt.batch_size
                 
-                
-                # 🐝 log train_loss for each step to wandb， epoch_len = len(train_ds) // train_loader.batch_size， epoch_len * epoch + step
-                # 🐝 log train_loss averaged over epoch to wandb
-                #wandb.log({"train loss": losses})
-            
                 visualizer.print_current_losses(epoch, epoch_iter, losses, t_comp, t_data)
                 if opt.display_id > 0:
                     visualizer.plot_current_losses(epoch, float(epoch_iter) / dataset_size, losses)
