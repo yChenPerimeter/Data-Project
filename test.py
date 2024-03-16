@@ -61,10 +61,15 @@ python test.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_Floa
 python test.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-4_batch1 --model pix2pix --direction BtoA --epoch 40  --preprocess none --netG resnet_9blocks --netD pixel --dataset_mode aligned  
 python test.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-4_batch1 --model pix2pix --direction BtoA --epoch 8  --preprocess none --netG resnet_9blocks --netD pixel --dataset_mode alignedCustmoized   
 
-# Generate 8x images
+# Generate denoised 8x images for student model
 python test.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-4_batch1 --model pix2pix --direction AtoB --epoch 39  --preprocess none --netG resnet_9blocks --netD pixel --dataset_mode alignedCustmoized   
-
 python test.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-4_batch1 --model pix2pix --direction AtoB --epoch 39  --preprocess none --netG resnet_9blocks --netD pixel --dataset_mode alignedCustmoized  
+"""
+
+"""
+20230317 - thesis
+
+python test.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-4_batch1 --model pix2pix --direction BtoA --epoch 52  --preprocess none --netG resnet_9blocks --netD pixel  
 """
 
 #sys.exit(1)
@@ -141,10 +146,6 @@ if __name__ == '__main__':
     model = create_model(opt)      # create a model given opt.model and other options
     model.setup(opt)               # regular setup: load and print networks; create schedulers
 
-    # initialize logger
-    # if opt.use_wandb:
-    #     wandb_run = wandb.init(project=opt.wandb_project_name, name=opt.name, config=opt) if not wandb.run else wandb.run
-    #     wandb_run._label(repo='CycleGAN-and-pix2pix')
 
     # create a website
     web_dir = os.path.join(opt.results_dir, opt.name, '{}_{}'.format(opt.phase, opt.epoch))  # define the website directory
@@ -175,8 +176,8 @@ if __name__ == '__main__':
     
     
     #TODO net
-    
-    net = torch.jit.load("/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/v4_FloatTest_lr10-4_batch1/v4_FloatTest_lr10-4_batch1_checkpoints_scripted39.pt")
+    print(f"Loading scripted model epoch {opt.epoch}")
+    net = torch.jit.load(f"/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/v4_FloatTest_lr10-4_batch1/v4_FloatTest_lr10-4_batch1_checkpoints_scripted{opt.epoch}.pt")
     net.to(device)
     net.eval()
     
@@ -211,7 +212,7 @@ if __name__ == '__main__':
         
     
         
-        #TODO net
+        #TODO comment/uncomment this line to use scripted model or unscripted model
         y = net.forward(data["B"].to(device))
         visuals["fake_B"] = y
         

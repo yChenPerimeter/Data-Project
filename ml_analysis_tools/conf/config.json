@@ -1,0 +1,13 @@
+{
+    "paths": {
+        "interim_data": "C:/Users/Yanir/Documents/204/float32_images",
+        "pre_processed_images": "C:/Users/Yanir/Documents/204/float32_images",
+	"output_csv_path": "C:/Users/Yanir/Documents/204/float32_images"
+    },
+    "result_group_list": [
+        "fake_B",
+        "real_B",
+        "real_A"
+    ],
+    "per_avg_count_upperBound": 100
+}
