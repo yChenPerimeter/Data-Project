@@ -90,7 +90,7 @@ def processing(cfg):
             if file.endswith('.jpeg') or file.endswith('.png'):
                 image_path = os.path.join(input_dir, file)
                 # img read here is RGBA images TODO change result from int to float
-                image_path = "/home/david/workingDIR/datasets_pro_test/testset_1x/average_ChickenThigh_1_1.png"
+                #image_path = "/home/david/workingDIR/datasets_pro_test/testset_1x/average_ChickenThigh_1_1.png"
                 rgba_image = Image.open(image_path)
             
                 rgb_image = rgba_image.convert('RGB')
