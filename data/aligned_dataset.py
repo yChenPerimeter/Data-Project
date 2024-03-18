@@ -38,8 +38,6 @@ class AlignedDataset(BaseDataset):
         """
         # read a image given a random integer index
         AB_path = self.AB_paths[index]
-
-        #TODO chaning 
         AB = Image.open(AB_path).convert('RGB')
         
         # print("plt",AB_path)
