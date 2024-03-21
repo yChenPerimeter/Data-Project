@@ -176,10 +176,10 @@ if __name__ == '__main__':
     
     
     #TODO net
-    print(f"Loading scripted model epoch {opt.epoch}")
-    net = torch.jit.load(f"/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/v4_FloatTest_lr10-4_batch1/v4_FloatTest_lr10-4_batch1_checkpoints_scripted{opt.epoch}.pt")
-    net.to(device)
-    net.eval()
+    # print(f"Loading scripted model epoch {opt.epoch}")
+    # net = torch.jit.load(f"/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/v4_FloatTest_lr10-4_batch1/v4_FloatTest_lr10-4_batch1_checkpoints_scripted{opt.epoch}.pt")
+    # net.to(device)
+    # net.eval()
     
     
     
@@ -213,8 +213,8 @@ if __name__ == '__main__':
     
         
         #TODO comment/uncomment this line to use scripted model or unscripted model
-        y = net.forward(data["B"].to(device))
-        visuals["fake_B"] = y
+        # y = net.forward(data["B"].to(device))
+        # visuals["fake_B"] = y
         
         # print('processing (%04d)-th image... %s' % (i, img_path))
         #save_images(webpage, visuals, img_path, aspect_ratio=opt.aspect_ratio, width=opt.display_winsize, use_wandb=opt.use_wandb)

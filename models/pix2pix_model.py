@@ -138,6 +138,8 @@ class Pix2PixModel(BaseModel):
         # Real
         real_AB = torch.cat((self.real_A, self.real_B), 1)
         pred_real = self.netD(real_AB)
+        
+        #Call  __call__ in GANLoss, which is the forward function
         self.loss_D_real = self.criterionGAN(pred_real, True)
         # combine loss and calculate gradients
         self.loss_D = (self.loss_D_fake + self.loss_D_real) * 0.5
