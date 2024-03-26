@@ -5,7 +5,8 @@ import matplotlib.pyplot as plt
 score_dict = {}
 
 # Path to your text file
-file_path = '/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/sorted_scores_v4_FloatTest_lr10-4_batch1.txt'
+dir_path = '/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/analysis_results/production_O21CVPL00001_13_01_16_v1'
+file_path = f'{dir_path}/sorted_scores.txt'
 
 # Open the file and read line by line
 with open(file_path, 'r') as file:
@@ -23,7 +24,6 @@ with open(file_path, 'r') as file:
 # Sort the dictionary by its keys (epochs) and prepare the lists for plotting
 sorted_epochs = sorted(score_dict.keys())
 sorted_fids = [score_dict[epoch] for epoch in sorted_epochs]
-print(sorted_epochs)
 # Plotting
 
 # Setting figure dimensions to match LaTeX text width
@@ -37,7 +37,7 @@ plt.figure(figsize=(fig_width, fig_height))
 plt.plot(sorted_epochs, sorted_fids, linestyle='-', color='b')
 plt.xlabel('Number of Epochs')
 plt.ylabel('FID Value')
-# plt.grid(True)
+plt.grid(True)
 
 # Setting x-axis ticks to show every 5 epochs
 # Calculate the range dynamically based on the min and max epoch values
@@ -47,5 +47,5 @@ plt.tight_layout()
 
 
 # Save the figure
-plt.savefig('/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/fid_by_epoch.png')  # Save as PNG with high resolution
+plt.savefig(f'{dir_path}/fid_by_epoch.png')  # Save as PNG with high resolution
 plt.show()
