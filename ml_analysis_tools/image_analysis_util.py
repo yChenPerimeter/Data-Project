@@ -5,6 +5,20 @@ import pandas as pd
 from skimage.metrics import structural_similarity as ssim
 
 from pathlib import Path
+import matplotlib.pyplot as plt
+
+def generate_boxplot(dataframe, metrics, plot_output_path):
+    """
+    Generates and saves a box plot for selected metrics.
+    :param dataframe: DataFrame containing the metrics data.
+    :param metrics: List of metric names to be plotted.
+    :param plot_output_path: Path where the plot image will be saved.
+    """
+    dataframe[metrics].plot(kind='box', vert=False)
+    plt.title('Distribution of Image Quality Metrics')
+    plt.tight_layout()
+    plt.savefig(plot_output_path)
+    plt.close()
 
 def draw_regions(image_path, signal_roi, noise_or_background_roi):
     """
@@ -77,6 +91,28 @@ def calculate_mse(imageA, imageB):
     """
     err = np.mean((imageA.astype("float") - imageB.astype("float")) ** 2)
     return err
+
+def calculate_psnr(imageA, imageB):
+    """
+    Compute the Peak Signal-to-Noise Ratio (PSNR) between two images.
+
+    Parameters:
+    - imageA (numpy.ndarray): The original image.
+    - imageB (numpy.ndarray): The reconstructed or modified image.
+
+    Returns:
+    - float: The PSNR value.
+    """
+    rmse = calculate_rmse(imageA, imageB)
+    
+    # Avoid division by zero
+    if rmse == 0:
+        return float('inf')
+    
+    MAX_I = 255.0  # Maximum pixel value for an 8-bit image
+    psnr = 20 * np.log10(MAX_I / rmse)
+    return psnr
+
 
 def measure_image_sharpness(image):
     """
