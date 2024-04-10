@@ -47,7 +47,7 @@ def save_to_csv(df, file_path):
 
 def load_image(image_path, grayscale=True):
     """
-    Load an image from the specified path.
+    Load an image from the specified path using cv2 and image would be stored as 8 bit grayscale by default.
     """
     # Ensure the path is a string
     image_path_str = str(image_path)
@@ -68,6 +68,9 @@ def calculate_rmse(imageA, imageB):
     Compute the Root Mean Squared Error (RMSE) between two images.
     """
     return np.sqrt(calculate_mse(imageA, imageB))    
+
+
+
 def calculate_mse(imageA, imageB):
     """
     Compute the Mean Squared Error (MSE) between two images. 
@@ -176,6 +179,52 @@ def calculate_signal_to_noise_ratio(image, signal_roi, noise_roi):
     snr = mean_signal / std_noise
     return snr
 
+def calculate_psnr(imageA, imageB, MAX_I=255.0):
+    """
+    Compute the Peak Signal-to-Noise Ratio (PSNR) between two images.
+
+    Parameters:
+    - imageA (numpy.ndarray): The original image.
+    - imageB (numpy.ndarray): The reconstructed or modified image.
+
+    Returns:
+    - float: The PSNR value.
+    """
+    rmse = calculate_rmse(imageA, imageB)
+    
+    # Avoid division by zero
+    if rmse == 0:
+        return float('inf')
+    
+    # 255.0 is the Maximum pixel value for an 8-bit image
+    psnr = 20 * np.log10(MAX_I / rmse)
+    return psnr
+
+
+def calculate_signal_to_noise_ratio_db(image, signal_roi, noise_roi):
+    """
+    Calculate the signal-to-noise ratio (SNR) in decibels (dB) for an image using specified ROIs for the signal and noise.
+    """
+    # Extract the signal and noise regions from the image
+    signal_region = image[signal_roi[1]:signal_roi[1] + signal_roi[3], signal_roi[0]:signal_roi[0] + signal_roi[2]]
+    noise_region = image[noise_roi[1]:noise_roi[1] + noise_roi[3], noise_roi[0]:noise_roi[0] + noise_roi[2]]
+
+    # Ensure the regions are not empty to avoid division by zero
+    if signal_region.size == 0 or noise_region.size == 0:
+        print("One or both specified ROIs are empty.")
+        return None
+
+    # Calculate the mean and standard deviation
+    mean_signal = np.mean(signal_region)
+    std_noise = np.std(noise_region)
+
+    # Compute the SNR in decibels
+    if std_noise == 0:
+        print("Standard deviation of the noise region is zero; SNR cannot be calculated.")
+        return None
+
+    snr = 10 * np.log10((mean_signal ** 2) / (std_noise ** 2))
+    return snr
 
 
 def cacluate_signal_to_noise_ratio_naive(image):

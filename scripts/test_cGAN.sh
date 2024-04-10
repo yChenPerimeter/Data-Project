@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Check if two arguments were provided
+# Make sure change SAVE DIR and command 
 # Make the script executable by running chmod +x test_cgan.sh in the terminal.
 # Execute the script with the desired range of epochs, like ./test_cGAN.sh 1 60
 
@@ -28,9 +29,11 @@ do
     echo "Running epoch $epoch"
    
     # COMMAND="python3 /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/test.py --dataroot /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-4_batch1 --model pix2pix --direction BtoA --epoch $epoch --preprocess none --netG resnet_9blocks --netD pixel --dataset_mode aligned"
-    #COMMAND="python3 /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/test.py --dataroot /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/cGAN_input_O21CVPL00001_13_01_16 --name production_O21CVPL00001_13_01_16 --model pix2pix --direction AtoB --epoch $epoch --preprocess none --netG resnet_9blocks --netD pixel --dataset_mode aligned"
+    COMMAND="python3 /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/test.py --dataroot /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/cGAN_input_O21CVPL00001_13_01_16 --name production_O21CVPL00001_13_01_16 --model pix2pix --direction AtoB --epoch $epoch --preprocess none --netG resnet_9blocks --netD pixel --dataset_mode aligned"
     #COMMAND="python3 /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/test.py --dataroot /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/cGAN_input_O21CVPL00001_13_01_16 --name production_O21CVPL00001_13_01_16_v1 --model pix2pix --direction AtoB --epoch $epoch --preprocess none --netG resnet_9blocks --netD pixel --dataset_mode aligned"
-    COMMAND="python3 /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/test.py --dataroot /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/cGAN_input_O21CV00001_13_01_16 --name production_O21CV00001_13_01_16 --model pix2pix --direction AtoB --epoch $epoch --preprocess none --netG resnet_9blocks --netD pixel --dataset_mode aligned"
+    #COMMAND="python3 /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/test.py --dataroot /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/cGAN_input_O21CV00001_13_01_16 --name production_O21CV00001_13_01_16 --model pix2pix --direction AtoB --epoch $epoch --preprocess none --netG resnet_9blocks --netD pixel --dataset_mode aligned"
+    # Test result after rearranging the input data, removed outliers data
+    #COMMAND="python3 /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/test.py --dataroot /home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/datasets/cGAN_input_O21CVPL00001_13_01_16 --name production_O21CVPL_rmNans_v2 --model pix2pix --direction AtoB --epoch $epoch --preprocess none --netG resnet_9blocks --netD pixel --dataset_mode aligned"
     # Run the command and capture the output
     $COMMAND > ${SAVE_DIR}/temp_output.txt 
     
