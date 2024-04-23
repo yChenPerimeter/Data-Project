@@ -50,12 +50,14 @@ class Constants:
     def __init__(self):
 
        
-        self.destination_folder = "/home/david/workingDIR/datasets_pro_test/denoised_1x" # replace with your own destination path
+        #self.destination_folder = "/home/david/workingDIR/datasets_pro_test/denoised_1x" # replace with your own destination path
+        self.destination_folder = "/home/david/workingDIR/datasets_productionUint8/noise_adding_experiment/denoised" # replace with your own destination path
         
-        self.root_test_folder = "/home/david/workingDIR/datasets_pro_test/testset_1x" # replace with your own destination path
+        #self.root_test_folder = "/home/david/workingDIR/datasets_pro_test/testset_1x" # replace with your own destination path
+        self.root_test_folder = "/home/david/workingDIR/datasets_productionUint8/noise_adding_experiment/noise_added" # replace with your own destination path
         
-        self.model_path = "/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/production_O21CVPL00001_13_01_16_v1/production_O21CVPL00001_13_01_16_v1_checkpoints_scripted52.pt" # replace with your own model path
-        self.model_name = "cGAN_v1"
+        self.model_path = "/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/production_uint8_O21CVPL00001_13_01_16/production_uint8_O21CVPL00001_13_01_16_checkpoints_scripted25.pt" # replace with your own model path
+        self.model_name = "cvpl_uint8"
 
 def main():
     """Main function to run the processing"""

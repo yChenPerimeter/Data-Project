@@ -7,6 +7,35 @@ from skimage.metrics import structural_similarity as ssim
 from pathlib import Path
 import matplotlib.pyplot as plt
 
+
+# The torch lighting is annoyed need to have group of images to compute FID, abandoned for now
+# import torch
+# # _ = torch.manual_seed(123)
+# from torchmetrics.image.fid import FrechetInceptionDistance
+
+# def fid_compute(imgs_dist1, imgs_dist2):
+#      # Check if the inputs are numpy arrays, we have input format 0-255 already
+#     if isinstance(imgs_dist1, np.ndarray):
+#         # Convert numpy arrays to PyTorch tensors
+#         imgs_dist1 = torch.from_numpy(imgs_dist1)
+#     if isinstance(imgs_dist2, np.ndarray):
+#         # Convert numpy arrays to PyTorch tensors
+#         imgs_dist2 = torch.from_numpy(imgs_dist2)
+
+#     # set 2 batch size this torch FID need a more than one sample
+#     # Add an two extra dimensions for 4d tensor,  for batch size, color channels, ,  if the images are grayscale np array
+#     # Convert grayscale images to RGB
+#     if len(imgs_dist1.shape) == 2:
+#         imgs_dist1 = imgs_dist1.repeat(3, 1, 1).unsqueeze(0).repeat(2, 1, 1, 1)
+#     if len(imgs_dist2.shape) == 2:
+#         imgs_dist2 = imgs_dist2.repeat(3, 1, 1).unsqueeze(0).repeat(2, 1, 1, 1)
+
+#     # Compute FID
+#     fid = FrechetInceptionDistance(feature=64)
+#     fid.update(imgs_dist1, real=True)
+#     fid.update(imgs_dist2, real=False)
+#     return fid.compute()
+
 def generate_boxplot(dataframe, metrics, plot_output_path):
     """
     Generates and saves a box plot for selected metrics.

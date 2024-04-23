@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 score_dict = {}
 
 # Path to your text file
-dir_path = '/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/analysis_results/concept_floatV4_lr10_-4'
+dir_path = '/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/analysis_results/production_uint8_O21CVPL00001_13_01_16_v1'
 file_path = f'{dir_path}/sorted_scores.txt'
 
 # Open the file and read line by line

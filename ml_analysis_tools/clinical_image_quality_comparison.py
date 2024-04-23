@@ -33,13 +33,13 @@ def analyze_image_pairs(input_folder, enhanced_folder, signal_roi, noise_roi):
         enhanced_image = load_image(enhanced_image_path, grayscale=True)
         metrics = {
             "Image Name": input_image_path.name,
-            "RMSE": calculate_rmse(input_image, enhanced_image),
+            #"RMSE": calculate_rmse(input_image, enhanced_image),
             "Speckle Index": speckle_index(enhanced_image),
-            "PSNR": calculate_psnr(input_image, enhanced_image),
-            "SSIM": calculate_ssim(input_image, enhanced_image),
-            "Sharpness": measure_image_sharpness(enhanced_image),
-            # "SNR": calculate_signal_to_noise_ratio(enhanced_image, signal_roi, noise_roi),
-            # "CNR": calculate_cnr_roi_coord(enhanced_image, signal_roi, noise_roi)
+            #"PSNR": calculate_psnr(input_image, enhanced_image),
+            #"SSIM": calculate_ssim(input_image, enhanced_image),
+            #"Sharpness": measure_image_sharpness(enhanced_image),
+            #"SNR": calculate_signal_to_noise_ratio(enhanced_image, signal_roi, noise_roi),
+            #"CNR": calculate_cnr_roi_coord(enhanced_image, signal_roi, noise_roi)
         }
         results.append(metrics)
 
@@ -76,9 +76,13 @@ def main(input_directory, enhanced_directory, csv_output_path, signal_roi, noise
         print("No images were processed.")
 
 if __name__ == "__main__":
-    input_directory = "/home/david/Projects/de_noise/pytorch-CycleGAN-and-pix2pix/analysis_results/ClinicalCase/DCIS"
-    enhanced_directory = "/home/david/Projects/de_noise/pytorch-CycleGAN-and-pix2pix/analysis_results/ClinicalCase/DCIS_denoised"
-    csv_output_path = "/home/david/Projects/de_noise/pytorch-CycleGAN-and-pix2pix/analysis_results/ClinicalCase/DCIS_image_analysis_results.csv"
+    #input_directory = "/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/analysis_results/ClinicalCase/DCIS"
+    input_directory = "/home/david/workingDIR/datasets_clinical/DCIS+"
+    
+    #enhanced_directory = "/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/analysis_results/ClinicalCase/DCIS"
+    enhanced_directory = "/home/david/workingDIR/datasets_clinical/cGAN_denoised/cGAN_cvpl_uint8_ep5"
+    
+    csv_output_path = "/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/analysis_results/ClinicalCase/DCIS+_image_analysis_results.csv"
     
     # Define ROIs for signal and noise
     signal_roi = (0, 65, 672, 105)  # Example signal ROI
@@ -86,6 +90,6 @@ if __name__ == "__main__":
 
     # Specify whether to save average metrics only and which metrics to plot
     average_only = True  # Change to True to save only the average results
-    plot_metrics = ["SSIM", "PSNR", "Sharpness"]  # Specify metrics to include in the box plot
+    plot_metrics = ["Speckle Index"]  # Specify metrics to include in the box plot
 
     main(input_directory, enhanced_directory, csv_output_path, signal_roi, noise_roi, average_only, plot_metrics)

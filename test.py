@@ -171,7 +171,7 @@ if __name__ == '__main__':
     # Lists to store features
     real_features = []
     fake_features = []
-
+    input_features = []
     
     
     
@@ -224,12 +224,18 @@ if __name__ == '__main__':
         #FID
         y_pred = visuals["fake_B"].to(device).repeat(1, 3, 1, 1)
         y_true = visuals["real_B"].to(device).repeat(1, 3, 1, 1)
+        
+        x_true = visuals["real_A"].to(device).repeat(1, 3, 1, 1)
+        
         # Extract features
         with torch.no_grad():
             pred_features = feature_extractor(y_pred).cpu().numpy()
             true_features = feature_extractor(y_true).cpu().numpy()
+            x_features = feature_extractor(x_true).cpu().numpy()
+            
 
         real_features.append(true_features)
+        input_features.append(x_features)
         fake_features.append(pred_features)
     
     webpage.save()  # save the HTML
@@ -237,7 +243,12 @@ if __name__ == '__main__':
     # Convert lists to numpy arrays
     real_features = np.concatenate(real_features, axis=0)
     fake_features = np.concatenate(fake_features, axis=0)
+    input_features = np.concatenate(input_features, axis=0)
 
     # Calculate FID
     fid_value = calculate_fid(real_features, fake_features)
+    fid_input = calculate_fid(real_features, input_features)
+    # TODO Need to test the input vs the GT 8x will affect work flow or not
+    print(f"FID input and GT 8x: {fid_input}")
+    # fid_value = calculate_fid(real_features, real_features)
     print(f"FID: {fid_value}")
