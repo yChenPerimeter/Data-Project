@@ -168,7 +168,7 @@ def speckle_index(image):
     return sigma_sum / mu_sum if mu_sum else 0
 
 
-def calculate_cnr_roi_coord(image, signal_roi, background_roi):
+def calculate_cnr_roi_coord(image, tissue_roi1, tissue_roi2, background_roi):
     """
     Calculate the Contrast-to-Noise Ratio (CNR) for given regions of interest within an image.
 
@@ -194,19 +194,21 @@ def calculate_cnr_roi_coord(image, signal_roi, background_roi):
     ```
     image = cv2.imread("path/to/image.png", cv2.IMREAD_GRAYSCALE)
     signal_roi = (10, 20, 50, 50)  # Example: x=10, y=20, width=50, height=50
-    background_roi = (100, 200, 50, 50)  # Another region for background
+    noise_roi = (100, 200, 50, 50)  # Another region for background
     cnr = calculate_cnr_roi_coord(image, signal_roi, background_roi)
     print("CNR:", cnr)
     ```
     """
-    signal_region = image[signal_roi[1]:signal_roi[1]+signal_roi[3], signal_roi[0]:signal_roi[0]+signal_roi[2]]
-    background_region = image[background_roi[1]:background_roi[1]+background_roi[3], background_roi[0]:background_roi[0]+background_roi[2]]
+    tissue_roi1_region = image[tissue_roi1[1]:tissue_roi1[1]+tissue_roi1[3], tissue_roi1[0]:tissue_roi1[0]+tissue_roi1[2]]
+    tissue_roi2_region = image[tissue_roi2[1]:tissue_roi2[1]+tissue_roi2[3], tissue_roi2[0]:tissue_roi2[0]+tissue_roi2[2]]
     
-    mu_signal = np.mean(signal_region)
-    mu_background = np.mean(background_region)
-    sigma_background = np.std(background_region)
+    noise_region = image[background_roi[1]:background_roi[1]+background_roi[3], background_roi[0]:background_roi[0]+background_roi[2]]
     
-    return abs(mu_signal - mu_background) / sigma_background if sigma_background else 0
+    mu_tissue1 = np.mean(tissue_roi1_region)
+    mu_background = np.mean(tissue_roi2_region)
+    sigma_noise = np.std(noise_region)
+    
+    return abs(mu_tissue1 - mu_background) / sigma_noise if sigma_noise else 0
 
 
 

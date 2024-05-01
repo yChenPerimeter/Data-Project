@@ -34,7 +34,8 @@ def analyze_image_pairs(input_folder, enhanced_folder, signal_roi, noise_roi):
         metrics = {
             "Image Name": input_image_path.name,
             #"RMSE": calculate_rmse(input_image, enhanced_image),
-            "Speckle Index": speckle_index(enhanced_image),
+            "Speckle Index ehanced": speckle_index(enhanced_image),
+            "Speckle Index input": speckle_index(input_image),
             #"PSNR": calculate_psnr(input_image, enhanced_image),
             #"SSIM": calculate_ssim(input_image, enhanced_image),
             #"Sharpness": measure_image_sharpness(enhanced_image),
@@ -77,10 +78,12 @@ def main(input_directory, enhanced_directory, csv_output_path, signal_roi, noise
 
 if __name__ == "__main__":
     #input_directory = "/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/analysis_results/ClinicalCase/DCIS"
-    input_directory = "/home/david/workingDIR/datasets_clinical/DCIS+"
+    #input_directory = "/home/david/workingDIR/datasets_clinical/DCIS+"
+    input_directory = "/home/david/workingDIR/datasets_clinical/334_DCIS+_source"
     
     #enhanced_directory = "/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/analysis_results/ClinicalCase/DCIS"
-    enhanced_directory = "/home/david/workingDIR/datasets_clinical/cGAN_denoised/cGAN_cvpl_uint8_ep5"
+    #enhanced_directory = "/home/david/workingDIR/datasets_clinical/cGAN_denoised/cGAN_cvpl_uint8_ep5"
+    enhanced_directory = "/home/david/workingDIR/datasets_clinical/cGAN_denoised_DCIS+/cGAN_cvpl_uint8_ep25"
     
     csv_output_path = "/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/analysis_results/ClinicalCase/DCIS+_image_analysis_results.csv"
     
@@ -90,6 +93,6 @@ if __name__ == "__main__":
 
     # Specify whether to save average metrics only and which metrics to plot
     average_only = True  # Change to True to save only the average results
-    plot_metrics = ["Speckle Index"]  # Specify metrics to include in the box plot
+    #plot_metrics = ["Speckle Index"]  # Specify metrics to include in the box plot
 
-    main(input_directory, enhanced_directory, csv_output_path, signal_roi, noise_roi, average_only, plot_metrics)
+    main(input_directory, enhanced_directory, csv_output_path, signal_roi, noise_roi, average_only)

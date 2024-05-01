@@ -51,6 +51,38 @@ def highlight_and_annotate_image(image_path, signal_roi, noise_or_background_roi
     # Save the image
     cv2.imwrite(save_path, image)
     print(f"Image saved to {save_path}")
+    
+def draw_regions_three(image_path, signal_roi_1, signal_roi_2, noise_or_background_roi, save_path):
+    """
+    Draw rectangles around the signal and noise/background regions on an image and save it.
+
+    :param image_path: Path to the image file.
+    :param signal_roi: Tuple of (x1, y1, width, height) for the signal region.
+    :param noise_or_background_roi: Tuple of (x1, y1, width, height) for the noise or background region.
+    :param save_path: Path where the annotated image will be saved.
+    """
+    # Load the image
+    image = cv2.imread(image_path)
+    if image is None:
+        print("Image not found.")
+        return
+
+    # Convert to a color image if it's grayscale
+    if len(image.shape) < 3:
+        image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
+
+    # Draw rectangles around the regions, BGR format
+    # yellow
+    cv2.rectangle(image, (signal_roi_1[0], signal_roi_1[1]), (signal_roi_1[0]+signal_roi_1[2], signal_roi_1[1]+signal_roi_1[3]), (255, 255, 0), 2)
+    # green
+    cv2.rectangle(image, (signal_roi_2[0], signal_roi_2[1]), (signal_roi_2[0]+signal_roi_2[2], signal_roi_2[1]+signal_roi_2[3]), (0, 255, 0), 2)
+    cv2.rectangle(image, (noise_or_background_roi[0], noise_or_background_roi[1]), (noise_or_background_roi[0]+noise_or_background_roi[2], noise_or_background_roi[1]+noise_or_background_roi[3]), (255, 0, 255), 2)
+
+    # Save the image
+    cv2.imwrite(save_path, image)
+    
+
+    print(f"Image saved to {save_path}")
 
 def draw_regions(image_path, signal_roi, noise_or_background_roi, save_path):
     """
@@ -84,10 +116,18 @@ def draw_regions(image_path, signal_roi, noise_or_background_roi, save_path):
 if __name__ == "__main__":
     print("This script is intended to be imported and used in other scripts.")
     image_path = "/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/analysis_results/valid_thumb/paired_thumb_nail_A_1_real_B.png"
-    signal_roi = (0, 65,672, 105)  # Example coordinates for the signal region
-    noise_or_background_roi = (0, 520, 672, 105)  # Example coordinates for the noise/background region
+    signal_roi = (0, 72, 425, 105)  # Previous Example coordinates for the signal region, (0, 65, 672, 105) 
+    noise_or_background_roi = (0, 740, 425, 105) # Previous Example coordinates for the noise/background region(0, 520, 672, 105)
+    
+    signal_roi_epidermis = (0, 72, 425, 37)  # Example coordinates for the signal region
+    signal_roi_dermis = (0, 150, 425, 37)  # Example coordinates for the signal region
+    noise_or_background_roi_threeR = (0, 740, 425, 37)  # Example coordinates for the noise/background region
+    
     save_path = "/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/analysis_results/valid_thumb/annotated_thumb_nail_A_1_image.png"  # Specify where to save the annotated image
     save_path_formula = "/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/analysis_results/valid_thumb/annotated_thumb_nail_A_1_image_formula.png"  # Specify where to save the annotated image with formula
+   
+    save_path_threeR = "/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/analysis_results/valid_thumb/annotated_thumb_nail_A_1_image_threeR.png"
     # Now, instead of displaying the image, it will be saved with the regions drawn.
     draw_regions(image_path, signal_roi, noise_or_background_roi, save_path)
+    draw_regions_three(image_path, signal_roi_epidermis, signal_roi_dermis, noise_or_background_roi_threeR, save_path_threeR)
     highlight_and_annotate_image(image_path, signal_roi, noise_or_background_roi, save_path_formula)

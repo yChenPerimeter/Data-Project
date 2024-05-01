@@ -7,21 +7,35 @@ from image_analysis_util import (load_image, calculate_ssim, calculate_rmse,
                                       measure_image_sharpness, speckle_index,
                                       calculate_signal_to_noise_ratio_db, calculate_psnr,calculate_cnr_roi_coord, save_to_csv)
 
-def analyze_image(image_path, reference_path,  sig_roi, bg_roi):
+def analyze_image(image_path, reference_path,  sig_roi, noise_roi):
     image = load_image(image_path, grayscale=True)
     reference = load_image(reference_path, grayscale=True)
     
     metrics = {
 
-        "RMSE": calculate_rmse(image, reference),
-        "Speckle Index": speckle_index(image),
-        "SNR": calculate_signal_to_noise_ratio_db(image, sig_roi, bg_roi),
+        # "RMSE": calculate_rmse(image, reference),
+        # "Speckle Index": speckle_index(image),
+        "SNR": calculate_signal_to_noise_ratio_db(image, sig_roi, noise_roi),
+       # "CNR3_roi": calculate_cnr_roi_coord(image, tis_roi1, tis_roi2,noise_roi),
         # Change maximum pixel value to 255 for PSNR calculation
-        "PSNR": calculate_psnr(image, reference),
-        "SSIM": calculate_ssim(image, reference),
-        "Sharpness": measure_image_sharpness(image),
+        # "PSNR": calculate_psnr(image, reference),
+        # "SSIM": calculate_ssim(image, reference),
+        # "Sharpness": measure_image_sharpness(image),
         #"fid": fid_find 
         # "CNR": calculate_cnr_roi_coord(image, sig_roi, bg_roi)
+    }
+
+    return metrics
+
+def analyze_image(image_path, reference_path,  sig_roi, tis_roi1, tis_roi2, noise_roi):
+    image = load_image(image_path, grayscale=True)
+    reference = load_image(reference_path, grayscale=True)
+    
+    metrics = {
+        "SNR": calculate_signal_to_noise_ratio_db(image, sig_roi, noise_roi),
+        "CNR2_roi": calculate_cnr_roi_coord(image, sig_roi,noise_roi, noise_roi),
+        "CNR3_roi": calculate_cnr_roi_coord(image, tis_roi1, tis_roi2, noise_roi),
+
     }
 
     return metrics
@@ -54,9 +68,21 @@ def main(input_directory, reference_path, model_name, signal_roi, background_roi
                     reference_path = image_path.parent / image_path.name.replace('_real_A', '_real_B')
                     metrics = analyze_image(image_path, reference_path, signal_roi, background_roi)
                     results.append(metrics)
-    #comparsion of 2x with 8x image
-    elif comparison == ("2x","real_B"):
-        pass
+    elif comparison == ("1x","real_B"):
+        images_dir = Path(input_directory)
+        for image_path in images_dir.iterdir():
+            file_name = image_path.name
+            image_reference_path = Path(reference_path) / file_name
+            metrics = analyze_image(image_path, image_reference_path, signal_roi, background_roi)
+            results.append(metrics)
+    elif comparison == ("2x","real_B") or comparison == ("3x","real_B") or comparison == ("4x","real_B") or comparison == ("5x","real_B") or comparison == ("6x","real_B") or comparison == ("7x","real_B"):
+        images_dir = Path(input_directory) 
+        for image_path in images_dir.iterdir():
+            file_name = image_path.name
+            image_reference_path = Path(reference_path) / file_name
+            metrics = analyze_image(image_path, image_reference_path, signal_roi, background_roi)
+            results.append(metrics)
+
         
 
     if results:
@@ -87,42 +113,52 @@ def main(input_directory, reference_path, model_name, signal_roi, background_roi
 if __name__ == "__main__":
     results_directory = "/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/results/"
     CSV_DIR = "/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/analysis_results"
-
+    ROOT_DIR = "/home/david/workingDIR/datasets_productionUint8/Paired_uint8_thumb_nail/more_test/test_01_16_thumb_nail/thumb_nail_B"
+    #ROOT_DIR = "/home/david/workingDIR/datasets_productionUint8/Paired_uint8_thumb_nail/test/test_01_16_thumb_nail/thumb_nail_B"
     # Updated structure: Using list to handle multiple epochs for the same model
     best_epoch_list = {
-        # "production_O21CVPL00001_13_01_16": [
+        "production_O21CVPL00001_13_01_16": [
         #     ("test_20", "24.167971220528536"),
         #     ("test_11", "17.251750253966513"),
-        #     ("test_31", "17.03868161665262"),
+            ("test_31", "17.03868161665262"),
         #     ("test_3", "12.965241914417346")
-        # ],
-        # "production_O21CVPL00001_13_01_16_v1": [
+        ],
+        "production_O21CVPL00001_13_01_16_v1": [
         #     ("test_28", "35.05690471838181"),
         #     ("test_12", "32.20152541605574"),
-        #     ("test_33", "33.58137053520801"),
+            ("test_33", "33.58137053520801"),
         #     ("test_1", "24.776094959556577")
-        # ],
-        # "production_O21CVPL_rmNans_v2": [
+        ],
+        "production_O21CVPL_rmNans_v2": [
         #     ("test_13", "20.611053209862362"),
         #     ("test_19", "15.535419047432761"),
-        #     ("test_45", "15.659139522790246"),
-        #     ("test_1", "12.57191164762748")
-        # ],
-        # "production_O21CV00001_13_01_16": [
+            ("test_45", "15.659139522790246"),
+        #    ("test_1", "12.57191164762748")
+        ],
+        "production_O21CV00001_13_01_16": [
         #     ("test_15", "34.340431082160535"),
         #     ("test_32", "29.780200929008537"),
-        #     ("test_35", "29.666050032804243"),
+             ("test_35", "29.666050032804243"),
         #     ("test_1", "28.8319221642879145")
-        # ],
+         ],
         "production_uint8_O21CVPL00001_13_01_16": [
-            # ("test_5", "7.534026632322463"),
-            # ("test_9", "8.599858021256397"),
-            # ("test_14", "8.360215355327655"),
-            # ("test_19", "10.652370377257641"),
-            ("test_25", "11.954550476610443"),
+        #     # ("test_5", "7.534026632322463"),
+        #     # ("test_9", "8.599858021256397"),
+        #     # ("test_14", "8.360215355327655"),
+        #     # ("test_19", "10.652370377257641"),
+        ("test_25", "11.954550476610443"),
         ],
-        "production_1x": [],
-        "production_1x_uin8": []
+        # "production_1x": [],
+        # "production_1x_uin8": [],
+        "1x": [],
+        "2x": [],
+        "3x": [],
+        "4x": [],
+        "5x": [],
+        "6x": [],
+        "7x": [],
+        "noisy": [],
+        
     }
 
     thumb_test_signal_roi = (0, 65, 672, 105)
@@ -130,6 +166,7 @@ if __name__ == "__main__":
     comparison = ("fake_B", "real_B")
 
 for model_name, epochs in best_epoch_list.items():
+    print("analyse data source: ", model_name)
     if model_name == "production_1x":
         # Handling for "production_1x"
         epoch = "NaN"
@@ -144,11 +181,24 @@ for model_name, epochs in best_epoch_list.items():
         input_directory = os.path.join(results_directory, "production_uint8_O21CVPL00001_13_01_16", "test_8")
         reference_dir = input_directory
         comparison = ("real_A", "real_B")
+    elif model_name in["1x","2x", "3x","4x","5x","6x","7x"]:
+        epoch = "NaN"
+        fid = "NaN"
+        input_directory = os.path.join(ROOT_DIR, model_name)
+        reference_dir = os.path.join(ROOT_DIR, "8x")
+        comparison = (model_name, "real_B")
+    elif model_name == "noisy":
+        epoch = "NaN"
+        fid = "NaN"
+        input_directory = os.path.join(ROOT_DIR, "noisy")
+        reference_dir = os.path.join(ROOT_DIR, "8x")
+        comparison = ("noisy", "real_B")
     else:
         for epoch, fid in epochs:
             input_directory = os.path.join(results_directory, model_name, epoch)
             reference_dir = input_directory
             main(input_directory, reference_dir, model_name, thumb_test_signal_roi, thumb_test_noise_or_background_roi, comparison, epoch, fid)
+    main(input_directory, reference_dir,model_name, thumb_test_signal_roi, thumb_test_noise_or_background_roi, comparison=comparison, epoch=epoch, fid=fid)
 
 
 

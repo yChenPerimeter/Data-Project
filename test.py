@@ -84,8 +84,8 @@ import sys
 import torch
 import torch.nn as nn
 from torchvision.models import inception_v3
-from ignite.metrics import FID
-from ignite.engine import Engine
+# from ignite.metrics import FID
+# from ignite.engine import Engine
 
 
 from matplotlib import pyplot as plt
@@ -115,8 +115,8 @@ class InceptionFeatureExtractor(nn.Module):
         return self.model(x)
 
 # Define the evaluation function
-def eval_step(engine, batch):
-    return  batch
+# def eval_step(engine, batch):
+#     return  batch
 
 # Function to calculate FID
 def calculate_fid(act1, act2):
