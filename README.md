@@ -3,8 +3,8 @@
 
 <br><br><br>
 
-# CycleGAN and pix2pix in PyTorch
-This is a PyTorch implementations for both unpaired and paired image-to-image translation , being used in ImgClear
+# AIDA code family in PyTorch
+This repository contains PyTorch implementations for the Data Project. The code is originally adapted from the ImgClear cGAN-based implementation.
 
 
 **CycleGAN: [Project](https://junyanz.github.io/CycleGAN/) |  [Paper](https://arxiv.org/pdf/1703.10593.pdf) |  [Torch](https://github.com/junyanz/CycleGAN) |
