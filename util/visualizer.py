@@ -265,6 +265,7 @@ class Visualizer():
 
     def plot_current_losses(self, epoch, counter_ratio, losses):
         """display the current losses on visdom display: dictionary of error labels and values
+        The one would log to wandb 
 
         Parameters:
             epoch (int)           -- current epoch
@@ -287,8 +288,10 @@ class Visualizer():
         #         win=self.display_id)
         # except VisdomExceptionBase:
         #     self.create_visdom_connections()
+        losses["epoch"] = epoch
         if self.use_wandb:
             self.wandb_run.log(losses)
+
 
     # losses: same format as |losses| of plot_current_losses
     def print_current_losses(self, epoch, iters, losses, t_comp, t_data):

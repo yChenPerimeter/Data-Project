@@ -40,4 +40,13 @@ ZeroCostDL4Mic Colab notebook: [CycleGAN](https://colab.research.google.com/gith
   - For Docker users, we provide the pre-built Docker image and Dockerfile. Please refer to our [Docker](docs/docker.md) page.
   - For Repl users, please click [![Run on Repl.it](https://repl.it/badge/github/junyanz/pytorch-CycleGAN-and-pix2pix)](https://repl.it/github/junyanz/pytorch-CycleGAN-and-pix2pix).
 
+### CycleGAN train/test
+- Download a CycleGAN dataset (e.g. our capstone data then casting using Data-Project/DataModule/get_image_info.py):
 
+- To view training results and loss plots, run `python -m visdom.server` and click the URL http://localhost:8097.
+- To log training progress and test images to W&B dashboard, set the `--use_wandb` flag with train and test script
+- Train a model:
+```bash
+#!./scripts/train_capstone.sh
+python train.py --dataroot ./datasets/capstone --name capstoneDCIS_cyclegan --model cycle_gan --pool_size 50 --no_dropout
+```

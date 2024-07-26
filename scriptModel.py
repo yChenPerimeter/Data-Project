@@ -1,59 +1,100 @@
-"""Code for script model, adapt from test.py"""
+# -*- coding: utf-8 -*-
+"""
+@Author: ychen
+Date: 2024-07-25
+Purpose: script the model weights for inference based on options
+
+python3 scriptModel.py  --dataroot ./datasets/capstone --name capstoneDCIS_cyclegan_batch4 --model cycle_gan --epoch latest
+python3 scriptModel.py --dataroot ./datasets/cGAN_input_uint8_O21_CV_PL00001_13_01_16 --name production_uint8_O21CVPL00001_13_01_16  --model pix2pix --direction AtoB --epoch 25 --preprocess none --netG resnet_9blocks --netD pixel  --data_bit 8 
+
+"""
 
 import torch
 import torch.nn as nn
-import time
+import os
+import sys
 
-from options.test_options import TestOptions
-from data import create_dataset
-from models import create_model
-from util.visualizer import Visualizer
+# Add the root directory to sys.path to ensure modules can be found
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from options.deploy_options import DeployOptions  # Import TestOptions class
+from models import create_model  # Import from models
 
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+def script_model(checkpoint):
+                
+    if isinstance(checkpoint, torch.nn.DataParallel):
+        scripted_modelD = torch.jit.script(checkpoint.module)
+    else:
+        scripted_modelD = torch.jit.script(checkpoint)
+    return scripted_modelD
 
-# Or torch.trace(), checkpoint version, .ptn script version.pt
-if __name__ == '__main__':
-    opt = TestOptions().parse()  # get test options
-    # hard-code some parameters for test
-    opt.num_threads = 0   # test code only supports num_threads = 0
-    opt.batch_size = 1    # test code only supports batch_size = 1
-    opt.serial_batches = True  # disable data shuffling; comment this line if results on randomly chosen images are needed.
-    opt.no_flip = True    # no flip; comment this line if results on flipped images are needed.
-    opt.display_id = -1   # no visdom display; the test code saves the results to a HTML file.
-    #dataset = create_dataset(opt)  # create a dataset given opt.dataset_mode and other options
-    model = create_model(opt)      # create a model given opt.model and other options
-    model.setup(opt)               # regular setup: load and print networks; create schedulers
+def main():
+    """Main function to optimize model weights for inference."""
+    opt = DeployOptions().parse()  # get test options from command-line arguments
 
+    model = create_model(opt)  # create a model given opt.model and other options
+    model.setup(opt)  # regular setup: load and print networks; create schedulers
 
     model.eval()
-    # model.print_networks(True)
-    
     
     nets = model.get_net()
-    # Check if nets is a DataParallel object
     if isinstance(nets, torch.nn.DataParallel):
-        print("Warning:accessing wrong net type found.")
+        print("Warning: accessing wrong net type found.")
         print(type(nets))
-  
-    if nets:
-        lns = len(nets)
-        print(f'----------  Networks number:{lns} -------------')
-        first_net = nets[0]
-        
-        # We can torch_tensort.compile(model,input = [],enabled_precisions = torch.half")
-        if isinstance(first_net, torch.nn.DataParallel):
-            scripted_modelD = torch.jit.script(first_net.module)  # Access the underlying module of DataParallel
-        else:
-            scripted_modelD = torch.jit.script(first_net)
-    else:
-        print("No networks found.")
+    
 
     f_name = opt.name
     epo = str(opt.epoch)
-    #convert to a scripted model, 
 
 
-    #scripted_modelD.save(f'/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/{f_name}/{f_name}_checkpoints_scripted{epo}.pt')
-    # scripted_modelD.save(f'/home/david/Projects/de_noise/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/{f_name}/{f_name}_checkpoints_scripted{epo}.pt')
-    scripted_modelD.save(f'/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/{f_name}/{f_name}_checkpoints_scripted{epo}.pt')
+    if nets:
+        lns = len(nets)
+        print(f'----------  Networks number: {lns} -------------')
+
+        if opt.model == "cycle_gan" :
+            net_G_A = script_model(nets[0])
+            net_G_B = script_model(nets[1])
+            
+            net_G_A.save(os.path.join(opt.scripted_checkpoints_dir, f"{f_name}_G_A_checkpoints_scripted{epo}.pt"))
+            net_G_B.save(os.path.join(opt.scripted_checkpoints_dir, f"{f_name}_G_B_checkpoints_scripted{epo}.pt"))
+        else:
+            first_net = nets[0]
+            
+            # if isinstance(first_net, torch.nn.DataParallel):
+            #     scripted_modelD = torch.jit.script(first_net.module)
+            # else:
+            #     scripted_modelD = torch.jit.script(first_net)
+            scripted_modelD = script_model(first_net)
+            optimized_model_path = os.path.join(opt.scripted_checkpoints_dir, f"{f_name}_checkpoints_scripted{epo}.pt")
+            scripted_modelD.save(optimized_model_path)
+    else:
+        print("No networks found.")
+        return
+
+
+
+    if opt.quantize:
+        quantize_precision = opt.precision
+        if quantize_precision == 'fp16':
+            net = torch.quantization.quantize_dynamic(model, {torch.nn.Conv2d}, dtype=torch.float16)
+            torch.jit.save(net, optimized_model_path)
+        elif quantize_precision == 'int8':
+            net = torch.quantization.quantize_dynamic(model, {torch.nn.Conv2d}, dtype=torch.qint8)
+            torch.jit.save(net, optimized_model_path)
+        else:
+            print('Invalid quantization precision selected.')
+
+    # if opt.speedtest:
+    #     mean_speed, st_dev, max_speed, min_speed = deploy_utils.speed_test(opt, net, torch_input, opt.batch_size)
+    #     print(f'\nMean Speed: {mean_speed} ms')
+    #     print(f'Standard Deviation: {st_dev} ms')
+    #     print(f'Max Speed: {max_speed} ms')
+    #     print(f'Min Speed: {min_speed} ms')
+    # else:
+    #     print('Model speed test not selected.')
+
+if __name__ == '__main__':
+    main()
