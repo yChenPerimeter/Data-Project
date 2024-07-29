@@ -26,7 +26,7 @@ def save_images(webpage, visuals, image_path, aspect_ratio=1.0, width=256, use_w
         visuals (OrderedDict)    -- an ordered dictionary that stores (name, images (either tensor or numpy) ) pairs
         image_path (str)         -- the string is used to create image paths
         aspect_ratio (float)     -- the aspect ratio of saved images
-        width (int)              -- the images will be resized to width x width
+        width (int)              -- the images will be resized to width x width saved to HTML
 
     This function will save images stored in 'visuals' to the HTML file specified by 'webpage'.
     """

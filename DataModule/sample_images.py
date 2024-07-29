@@ -13,6 +13,10 @@
 # python sample_images.py <input_folder> <output_folder> --sample_size <number_of_images> --filter_lr
 # python sample_images.py /home/ychen/Documents/project/TrainingDataOG/Training/DCIS- /home/ychen/Documents/project/Data-Project/datasets/capstone/trainA --sample_size 1824 --filter_lr
 
+# without Flip 1869
+# python sample_images.py /home/ychen/Documents/Training_Testing/Train_A_DCIS+ve  /home/ychen/Documents/project/Data-Project/datasets/imgAssit20240729_DCIS/trainB --sample_size 3738 --filter_lr
+
+
 
 import os
 import shutil
