@@ -26,7 +26,7 @@ def save_images(webpage, visuals, image_path, aspect_ratio=1.0, width=256, use_w
         visuals (OrderedDict)    -- an ordered dictionary that stores (name, images (either tensor or numpy) ) pairs
         image_path (str)         -- the string is used to create image paths
         aspect_ratio (float)     -- the aspect ratio of saved images
-        width (int)              -- the images will be resized to width x width
+        width (int)              -- the images will be resized to width x width saved to HTML
 
     This function will save images stored in 'visuals' to the HTML file specified by 'webpage'.
     """
@@ -265,6 +265,7 @@ class Visualizer():
 
     def plot_current_losses(self, epoch, counter_ratio, losses):
         """display the current losses on visdom display: dictionary of error labels and values
+        The one would log to wandb 
 
         Parameters:
             epoch (int)           -- current epoch
@@ -287,8 +288,10 @@ class Visualizer():
         #         win=self.display_id)
         # except VisdomExceptionBase:
         #     self.create_visdom_connections()
+        losses["epoch"] = epoch
         if self.use_wandb:
             self.wandb_run.log(losses)
+
 
     # losses: same format as |losses| of plot_current_losses
     def print_current_losses(self, epoch, iters, losses, t_comp, t_data):

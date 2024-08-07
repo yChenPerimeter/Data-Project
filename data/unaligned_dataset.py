@@ -3,7 +3,7 @@ from data.base_dataset import BaseDataset, get_transform
 from data.image_folder import make_dataset
 from PIL import Image
 import random
-
+import sys
 
 class UnalignedDataset(BaseDataset):
     """
@@ -33,6 +33,8 @@ class UnalignedDataset(BaseDataset):
         btoA = self.opt.direction == 'BtoA'
         input_nc = self.opt.output_nc if btoA else self.opt.input_nc       # get the number of channels of input image
         output_nc = self.opt.input_nc if btoA else self.opt.output_nc      # get the number of channels of output image
+
+        # This code will transform image to grey Scale
         self.transform_A = get_transform(self.opt, grayscale=(input_nc == 1))
         self.transform_B = get_transform(self.opt, grayscale=(output_nc == 1))
 
@@ -54,9 +56,27 @@ class UnalignedDataset(BaseDataset):
         else:   # randomize the index for domain B to avoid fixed pairs.
             index_B = random.randint(0, self.B_size - 1)
         B_path = self.B_paths[index_B]
-        A_img = Image.open(A_path).convert('RGB')
-        B_img = Image.open(B_path).convert('RGB')
-        # apply image transformation
+
+        if self.opt.input_nc == 3:
+            # RGB
+            A_img = Image.open(A_path).convert('RGB')
+            B_img = Image.open(B_path).convert('RGB')
+        else: 
+            # Grey scale
+            A_img = Image.open(A_path)
+            B_img = Image.open(B_path)
+        """
+        ex: 
+        Image Format: None
+        Image Mode: RGB
+        Image Size: (188, 419)
+
+        Image Format: PNG
+        Image Mode: L
+        Image Size: (188, 424)
+        """
+
+        # apply image transformation, # This code will transform image to grey Scale if necessary
         A = self.transform_A(A_img)
         B = self.transform_B(B_img)
 
