@@ -28,6 +28,16 @@ See frequently asked questions at: https://github.com/junyanz/pytorch-CycleGAN-a
 """
 
 
+"""
+cycleGAN  #Image shape default to 256 due to preprocess 
+To test cycleGAN for 256*256 use  python test.py --dataroot ./datasets/capstone --name capstoneDCIS_cyclegan_batch4 --model cycle_gan --phase test --no_dropout --test_mode unscripted  
+for default size python test.py --dataroot ./datasets/capstone --name capstoneDCIS_cyclegan_batch4 --model cycle_gan --phase test --no_dropout --test_mode unscripted  --preprocess none
+"""
+
+
+
+
+
 ##!./scripts/test_pix2pix.sh python test.py --dataroot ./datasets/CNG_Tomato_Air --name CNGTA_pix2pix300E256Unet --model pix2pix --direction BtoA --epoch 250
 
 """
@@ -84,8 +94,8 @@ import sys
 import torch
 import torch.nn as nn
 from torchvision.models import inception_v3
-from ignite.metrics import FID
-from ignite.engine import Engine
+# from ignite.metrics import FID
+# from ignite.engine import Engine
 
 
 from matplotlib import pyplot as plt
@@ -134,7 +144,6 @@ def calculate_fid(act1, act2):
 
 
 if __name__ == '__main__':
-    
     opt = TestOptions().parse()  # get test options
     # hard-code some parameters for test
     opt.num_threads = 0   # test code only supports num_threads = 0
@@ -175,11 +184,13 @@ if __name__ == '__main__':
     
     
     
-    #TODO net
-    print(f"Loading scripted model epoch {opt.epoch}")
-    net = torch.jit.load(f"/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/v4_FloatTest_lr10-4_batch1/v4_FloatTest_lr10-4_batch1_checkpoints_scripted{opt.epoch}.pt")
-    net.to(device)
-    net.eval()
+
+    if opt.test_mode == "scripted":
+
+        print(f"Loading scripted model epoch {opt.epoch}")
+        net = torch.jit.load(f"/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/v4_FloatTest_lr10-4_batch1/v4_FloatTest_lr10-4_batch1_checkpoints_scripted{opt.epoch}.pt")
+        net.to(device)
+        net.eval()
     
     
     
@@ -204,26 +215,49 @@ if __name__ == '__main__':
         
         # print(data)
         model.set_input(data)  # unpack data from data loader, here Pix2Pix model swap defination of A and B, i.e To A is the 1x, B is the 8x
-        model.test()           # run inference    
+        model.test()           # run inference 
+
+        #Image shape default to 256 due to preprocess
+        # print(data["A"].shape)
+        # sys.exit(1)
+
         visuals = model.get_current_visuals()  # get image results, in Dict 'real_A', 'fake_B', 'real_B' : tensor
-        img_path = model.get_image_paths()     # get image paths
-        # if i % 5 == 0:  # save images to an HTML file
-        
-        
+        img_path = model.get_image_paths()     # get image paths        
     
-        
-        #TODO comment/uncomment this line to use scripted model or unscripted model
-        y = net.forward(data["B"].to(device))
-        visuals["fake_B"] = y
-        
+        # TODO comment/uncomment this line to use scripted model or unscripted model
+        # Assuming test_mode will contain the mode, default to False if not provided
+
+        if opt.test_mode == "scripted":
+            y = net.forward(data["B"].to(device))
+            visuals["fake_B"] = y
+        else:
+            # Use unscripted model logic here
+            pass
+                
+
+
+
+
+
         # print('processing (%04d)-th image... %s' % (i, img_path))
-        #save_images(webpage, visuals, img_path, aspect_ratio=opt.aspect_ratio, width=opt.display_winsize, use_wandb=opt.use_wandb)
-        save_FloatGrayImages(webpage, visuals, img_path, aspect_ratio=opt.aspect_ratio, width=opt.display_winsize, use_wandb=False)
+        if opt.test_data_type == "uint8":
+            #Fake A shape bing changed
+            print(visuals["fake_A"].shape)
+            sys.exit(1)
+
+            #Width params only effect HTML,not saved image
+            save_images(webpage, visuals, img_path, aspect_ratio=opt.aspect_ratio, width=opt.display_winsize, use_wandb=opt.use_wandb)
+        else:
+            save_FloatGrayImages(webpage, visuals, img_path, aspect_ratio=opt.aspect_ratio, width=opt.display_winsize, use_wandb=False)
 
      
         #FID
-        y_pred = visuals["fake_B"].to(device).repeat(1, 3, 1, 1)
-        y_true = visuals["real_B"].to(device).repeat(1, 3, 1, 1)
+        if opt.model == "pix2pix":
+            y_pred = visuals["fake_B"].to(device).repeat(1, 3, 1, 1)
+            y_true = visuals["real_B"].to(device).repeat(1, 3, 1, 1)
+        else:
+            y_pred = visuals["fake_B"].to(device)
+            y_true = visuals["real_B"].to(device)
         # Extract features
         with torch.no_grad():
             pred_features = feature_extractor(y_pred).cpu().numpy()

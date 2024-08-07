@@ -23,7 +23,9 @@ from options.train_options import TrainOptions
 from data import create_dataset
 from models import create_model
 from util.visualizer import Visualizer
-import wandb
+# import wandb
+# import sys
+# from PIL import Image
 
 """
  It assumes that the directory '/path/to/data/train' contains image pairs in the form of {A,B}. During test time, you need to prepare a directory '/path/to/data/test'.
@@ -58,6 +60,10 @@ if __name__ == '__main__':
 
             total_iters += opt.batch_size
             epoch_iter += opt.batch_size
+
+            # print(data["A"])
+            # ([4, 1, 256, 256])
+            #print(f'Tensor Shape: {data["A"].shape}') 
             model.set_input(data)         # unpack data from dataset and apply preprocessing
             model.optimize_parameters()   # calculate loss functions, get gradients, update network weights
 
