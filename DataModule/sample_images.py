@@ -16,7 +16,10 @@
 # without Flip 1869
 # python sample_images.py /home/ychen/Documents/Training_Testing/Train_A_DCIS+ve  /home/ychen/Documents/project/Data-Project/datasets/imgAssit20240729_DCIS/trainB --sample_size 3738 --filter_lr
 
+# python sample_images.py /home/ychen/Documents/project/training_testing_IDC/Train_A_IDC  /home/ychen/Documents/project/Data-Project/datasets/IDC_stride/trainA --sample_size 
 
+# With Flip: dont affect much
+# python sample_images.py   /home/ychen/Documents/Training_Testing_DCIS_8_8_2024/Train_A_DCIS- /home/ychen/Documents/project/Data-Project/datasets/DCIS_20240808/trainA --sample_size 2809
 
 import os
 import shutil
@@ -50,7 +53,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Sample images from a folder')
     parser.add_argument('input_folder', type=str, help='Path to the input folder containing images')
     parser.add_argument('output_folder', type=str, help='Path to the output folder to save sampled images')
-    parser.add_argument('--sample_size', type=int, default=2000, help='Number of images to sample (default: 2000)')
+    parser.add_argument('--sample_size', type=int, default=10000, help='Number of images to sample (default: 2000)')
     parser.add_argument('--filter_lr', action='store_true', help='Filter out files with "_lr" at the end')
 
     args = parser.parse_args()

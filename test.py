@@ -242,8 +242,8 @@ if __name__ == '__main__':
         # print('processing (%04d)-th image... %s' % (i, img_path))
         if opt.test_data_type == "uint8":
             #Fake A shape bing changed
-            print(visuals["fake_A"].shape)
-            sys.exit(1)
+            # print(visuals["fake_A"].shape)
+            # sys.exit(1)
 
             #Width params only effect HTML,not saved image
             save_images(webpage, visuals, img_path, aspect_ratio=opt.aspect_ratio, width=opt.display_winsize, use_wandb=opt.use_wandb)
@@ -258,20 +258,29 @@ if __name__ == '__main__':
         else:
             y_pred = visuals["fake_B"].to(device)
             y_true = visuals["real_B"].to(device)
-        # Extract features
-        with torch.no_grad():
-            pred_features = feature_extractor(y_pred).cpu().numpy()
-            true_features = feature_extractor(y_true).cpu().numpy()
 
-        real_features.append(true_features)
-        fake_features.append(pred_features)
+        if opt.output_nc == 1:
+            # need to write logic here either update y_pred, y_true to RGB 3 channel tensor or update FID
+            pass
+        else:
+            # Extract features
+            with torch.no_grad():
+                pred_features = feature_extractor(y_pred).cpu().numpy()
+                true_features = feature_extractor(y_true).cpu().numpy()
+
+            real_features.append(true_features)
+            fake_features.append(pred_features)
     
     webpage.save()  # save the HTML
-    
-    # Convert lists to numpy arrays
-    real_features = np.concatenate(real_features, axis=0)
-    fake_features = np.concatenate(fake_features, axis=0)
 
-    # Calculate FID
-    fid_value = calculate_fid(real_features, fake_features)
-    print(f"FID: {fid_value}")
+
+    if opt.output_nc == 1:
+        pass
+    else:
+        # Convert lists to numpy arrays
+        real_features = np.concatenate(real_features, axis=0)
+        fake_features = np.concatenate(fake_features, axis=0)
+
+        # Calculate FID
+        fid_value = calculate_fid(real_features, fake_features)
+        print(f"FID: {fid_value}")

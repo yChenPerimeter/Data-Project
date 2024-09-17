@@ -7,6 +7,8 @@ Purpose: script the model weights for inference based on options
 python3 scriptModel.py  --dataroot ./datasets/capstone --name capstoneDCIS_cyclegan_batch4 --model cycle_gan --epoch latest
 python3 scriptModel.py --dataroot ./datasets/cGAN_input_uint8_O21_CV_PL00001_13_01_16 --name production_uint8_O21CVPL00001_13_01_16  --model pix2pix --direction AtoB --epoch 25 --preprocess none --netG resnet_9blocks --netD pixel  --data_bit 8 
 
+python3 scriptModel.py --dataroot ./datasets/Adipose_IDC_20240813  --name Adipose_IDC_cyclegan --model cycle_gan 
+
 """
 
 import torch

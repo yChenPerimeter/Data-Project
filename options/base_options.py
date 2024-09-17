@@ -51,17 +51,15 @@ class BaseOptions():
         """
         parser.add_argument('--load_w', type=int, default=1024, help='scale images to this size w if necessary')
         parser.add_argument('--load_h', type=int, default=672, help='scale images to this size w if necessary')
+        parser.add_argument('--crop_w', type=int, default=1024, help='scale images to this size w if necessary')
+        parser.add_argument('--crop_h', type=int, default=672, help='scale images to this size w if necessary')
         
+        """end , above is not used in unaliged data/cycleGAN
+        """
         ##TODO 286, ori; in ImgClear 1024
         parser.add_argument('--load_size', type=int, default=286, help='scale images to this size')
         #TODO 256, ori
         parser.add_argument('--crop_size', type=int, default=256, help='then crop to this size')
-        
-        parser.add_argument('--crop_w', type=int, default=1024, help='scale images to this size w if necessary')
-        parser.add_argument('--crop_h', type=int, default=672, help='scale images to this size w if necessary')
-        
-        """
-        """
         
         
         
