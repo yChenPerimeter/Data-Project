@@ -4,6 +4,8 @@ Script to calculate the top 50 lowest SSIM (Structural Similarity Index Measure)
 This script scans a folder for image pairs with names like '*_fake_B.png' and '*_real_A.png', calculates the SSIM
 between them, and reports the 50 image pairs with the lowest SSIM scores.
 
+change ssim_scores[100:120] index to decide range
+
 Usage:
     python ssim_image_pairs.py
 
@@ -99,7 +101,8 @@ def get_top_50_lowest_ssim(image_pairs):
     ssim_scores.sort(key=lambda x: x[2])
     
     # Return the top 50 image pairs with the lowest SSIM
-    return ssim_scores[100:120]
+    #TODO change here to decide range
+    return ssim_scores[0:120]
 
 if __name__ == '__main__':
     # Specify the folder containing the images
