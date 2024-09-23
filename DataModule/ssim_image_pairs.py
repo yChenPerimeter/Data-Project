@@ -106,7 +106,7 @@ def get_top_50_lowest_ssim(image_pairs):
 
 if __name__ == '__main__':
     # Specify the folder containing the images
-    folder_path = '/home/ychen/Documents/project/Data-Project/results/DCIS_IDC_cyclegan/test_62/images/testA'
+    folder_path = '/home/ychen/Documents/project/Data-Project/results/DCIS_IDC_cyclegan/test_80/images/testA'
     
     # Find image pairs
     image_pairs = find_image_pairs(folder_path)
