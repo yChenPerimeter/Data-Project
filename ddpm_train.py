@@ -14,6 +14,8 @@ Requirements:
 Author: Youwei Chen
 Date: 2024-10-07
 """
+from PIL import Image
+from torch.utils.data import Dataset
 import os
 import torch
 from torch import optim
@@ -43,13 +45,39 @@ diffusion = GaussianDiffusion(
 # Use ImageFolder to load images from a directory and apply transformations.
 # The dataset assumes images are organized in subdirectories for each class.
 
+#for cycleGAN it need two domain images, diffusion model only need one domain
+
+# TODO, emend the dataset class to fit the cycleGAN setting, check if these transformation is necessary
+class SingleClassImageDataset(Dataset):
+    def __init__(self, image_dir, transform=None):
+        self.image_dir = image_dir
+        self.transform = transform
+        # List all image file paths in the directory
+        self.image_files = [os.path.join(image_dir, file) for file in os.listdir(image_dir) if file.endswith(('jpg', 'jpeg', 'png'))]
+
+    def __len__(self):
+        return len(self.image_files)
+
+    def __getitem__(self, idx):
+        # Load the image
+        img_path = self.image_files[idx]
+        image = Image.open(img_path).convert('RGB')  # Ensure images are in RGB format
+
+        # Apply transformations if specified
+        if self.transform:
+            image = self.transform(image)
+
+        return image
+
+# Usage
+image_dir = '/home/ychen/Documents/project/Data-Project/datasets/0928_suspecious_equall_split/trainB'
 transform = transforms.Compose([
-    transforms.Resize(128),  # Resize images to the required size
-    transforms.ToTensor(),   # Convert images to tensors normalized to [0, 1]
+    transforms.Resize((128, 128)),
+    transforms.ToTensor(),
 ])
 
-#for cycleGAN it need two domain images, diffusion model only need one domain
-dataset = datasets.ImageFolder('/home/ychen/Documents/project/Data-Project/datasets/0928_suspecious_equall_split/trainB', transform=transform)
+dataset = SingleClassImageDataset(image_dir, transform=transform)
+
 dataloader = DataLoader(dataset, batch_size=8, shuffle=True)
 
 # 3. Optimizer Configuration
@@ -60,7 +88,7 @@ optimizer = optim.Adam(model.parameters(), lr=1e-4)
 # 4. Training Loop
 # Set up the main training loop over a specified number of epochs. Each epoch processes the entire dataset.
 
-n_epochs = 10
+n_epochs = 5
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model.to(device)          # Move model to the selected device
 diffusion.to(device)      # Move diffusion process to the selected device
@@ -69,8 +97,11 @@ for epoch in range(n_epochs):
     epoch_start_time = time.time()
     total_loss = 0        # Accumulate total loss over an epoch for logging
 
-    # Iterate over data batches
-    for i, (images, _) in enumerate(dataloader):
+
+    # Since each batch only returns images, unpack just one value
+    for i, images in enumerate(dataloader):
+        #print(f"Batch {i}: {images.shape}") 
+        
         images = images.to(device)  # Move images to the selected device
         optimizer.zero_grad()       # Zero gradients to avoid accumulation
 
@@ -94,7 +125,7 @@ for epoch in range(n_epochs):
     # 5. Model Checkpointing
     # Save the model state every 10 epochs for later use or resuming training
     if (epoch + 1) % 10 == 0:
-        torch.save(model.state_dict(), f"ddpm_epoch_{epoch+1}.pth")
+        torch.save(model.state_dict(), f"/home/ychen/Documents/project/Data-Project/checkpoints/DDPM/trial_experiment/ddpm_epoch_{epoch+1}.pth")
         print(f"Model checkpoint saved at epoch {epoch+1}")
 
 # 6. Image Sampling (Post-training)
