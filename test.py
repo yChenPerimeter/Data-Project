@@ -77,11 +77,14 @@ python test.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_Floa
 """
 
 """
-20230317 - thesis
+20230317 - cGAN paper
 
 python test.py --dataroot ./datasets/cGAN_input_float_20231128_v4 --name v4_FloatTest_lr10-4_batch1 --model pix2pix --direction BtoA --epoch 52  --preprocess none --netG resnet_9blocks --netD pixel  
 """
 
+"""
+resize_output_flag
+"""
 #sys.exit(1)
 import os
 from options.test_options import TestOptions
@@ -235,18 +238,15 @@ if __name__ == '__main__':
             pass
                 
 
-
-
-
-
-        # print('processing (%04d)-th image... %s' % (i, img_path))
         if opt.test_data_type == "uint8":
-            #Fake A shape bing changed
-            # print(visuals["fake_A"].shape)
-            # sys.exit(1)
 
-            #Width params only effect HTML,not saved image
-            save_images(webpage, visuals, img_path, aspect_ratio=opt.aspect_ratio, width=opt.display_winsize, use_wandb=opt.use_wandb)
+            #Width params only effect HTML,not saved image; image size affect outputsize
+            if opt.resize_output_flag:
+                output_size = (opt.out_width, opt.out_height)
+            else :
+                output_size = ()
+           
+            save_images(webpage, visuals, img_path, aspect_ratio=opt.aspect_ratio, width=opt.display_winsize, use_wandb=opt.use_wandb, output_size=output_size)
         else:
             save_FloatGrayImages(webpage, visuals, img_path, aspect_ratio=opt.aspect_ratio, width=opt.display_winsize, use_wandb=False)
 

@@ -11,8 +11,8 @@ import shutil
 from pathlib import Path
 
 # Define the source folder and destination folder
-source_folder = '/home/ychen/Documents/project/mother_data/Data_youwei_non-sus/NormalDuct'
-destination_folder = '/home/ychen/Documents/project/Data-Project/datasets/0922_Duct_fiber_suspeciouse/Duct'
+source_folder = '/home/ychen/Documents/project/mother_data/datasets'
+destination_folder = '/home/ychen/Documents/project/Data-Project/datasets/0922_Duct_fiber_suspeciouse/testB'
 
 # Ensure the destination folder exists
 os.makedirs(destination_folder, exist_ok=True)

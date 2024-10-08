@@ -49,10 +49,10 @@ class BaseOptions():
         
         """Ychen code start
         """
-        parser.add_argument('--load_w', type=int, default=1024, help='scale images to this size w if necessary')
-        parser.add_argument('--load_h', type=int, default=672, help='scale images to this size w if necessary')
-        parser.add_argument('--crop_w', type=int, default=1024, help='scale images to this size w if necessary')
-        parser.add_argument('--crop_h', type=int, default=672, help='scale images to this size w if necessary')
+        # parser.add_argument('--load_w', type=int, default=1024, help='scale images to this size w if necessary')
+        # parser.add_argument('--load_h', type=int, default=672, help='scale images to this size w if necessary')
+        # parser.add_argument('--crop_w', type=int, default=1024, help='scale images to this size w if necessary')
+        # parser.add_argument('--crop_h', type=int, default=672, help='scale images to this size w if necessary')
         
         """end , above is not used in unaliged data/cycleGAN
         """
@@ -60,6 +60,12 @@ class BaseOptions():
         parser.add_argument('--load_size', type=int, default=286, help='scale images to this size')
         #TODO 256, ori
         parser.add_argument('--crop_size', type=int, default=256, help='then crop to this size')
+
+        # Boolean flag to resize output or not
+        parser.add_argument('--resize_output_flag', action='store_true', help="Flag to resize output image")
+        # 576, 188 for bb
+        parser.add_argument('--out_width', type=int, default=576, help="Output image width")
+        parser.add_argument('--out_height', type=int, default=188, help="Output image height")
         
         
         

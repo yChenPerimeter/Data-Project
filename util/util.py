@@ -20,8 +20,8 @@ def tensor2im(input_image, imtype=np.uint8):
         else:
             return input_image
         image_numpy = image_tensor[0].cpu().float().numpy()  # convert it into a numpy array
-        if image_numpy.shape[0] == 1:  # grayscale to RGB
-            image_numpy = np.tile(image_numpy, (3, 1, 1))
+        # if image_numpy.shape[0] == 1:  # grayscale to RGB
+        #     image_numpy = np.tile(image_numpy, (3, 1, 1))
         image_numpy = (np.transpose(image_numpy, (1, 2, 0)) + 1) / 2.0 * 255.0  # post-processing: tranpose and scaling
     else:  # if it is a numpy array, do nothing
         image_numpy = input_image
@@ -90,7 +90,7 @@ def normalize_image(image):
     return normalized_image
 
 
-def save_image(image_numpy, image_path, aspect_ratio=1.0):
+def save_image(image_numpy, image_path, aspect_ratio=1.0, output_size = ()):
     """Save a numpy image to the disk
 
     Parameters:
@@ -100,7 +100,7 @@ def save_image(image_numpy, image_path, aspect_ratio=1.0):
     
     # since fromarray() only accepts shape: (1024, 672) for 1 channel , we have (1, 1024, 672)  
     image_numpy = np.squeeze(image_numpy)
-    # print_info(image_numpy)
+    #print_info(image_numpy)
 
     image_pil = Image.fromarray(image_numpy)
     if len(image_numpy.shape) == 2:
@@ -112,25 +112,30 @@ def save_image(image_numpy, image_path, aspect_ratio=1.0):
         image_pil = image_pil.resize((h, int(w * aspect_ratio)), Image.BICUBIC)
     if aspect_ratio < 1.0:
         image_pil = image_pil.resize((int(h / aspect_ratio), w), Image.BICUBIC)
-        
+    
+    
     if len(image_numpy.shape) == 3:
+        
         image_pil.save(image_path)
     else:
         # Changed from image_pil to image_numpy #TODO can be used other way?
         # Special case for float grayscale images
-        print("image_path:", image_path)
-        print("ori: ", image_numpy[0:5, 0:5])
+        # print("image_path:", image_path)
+        # print("ori: ", image_numpy[0:5, 0:5])
         image_numpy = normalize_image(image_numpy)
 
-        print_info(image_numpy)
+        #print_info(image_numpy)
 
-        print("sample: ", image_numpy[0:5, 0:5])
+        #print("sample: ", image_numpy[0:5, 0:5])
         image =  Image.fromarray(image_numpy)
+
+        if output_size != ():
+            # Resize the image to 564x411
+            image = image.resize(output_size)
+            # print("resize in util")
+            # print(image.size)
        
-        print(image.getextrema())
-        
-        
-        
+        #print(image.getextrema())
         
         plt.imsave(image_path, image, cmap='gray')
         
