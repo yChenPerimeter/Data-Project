@@ -38,11 +38,11 @@ def tensor2im(input_image, imtype=np.uint8):
 class Constants:
     """Constants used in the processing of the data."""
     def __init__(self):
-        self.destination_folder = "/home/david/workingDIR/datasets_pro_test/denoised_1x" # replace with your own destination path
-        self.root_test_folder_A = "/home/david/workingDIR/datasets_pro_test/testset_A" # replace with your own domain A path
-        self.root_test_folder_B = "/home/david/workingDIR/datasets_pro_test/testset_B" # replace with your own domain B path
-        self.model_path_G_A = "/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/production_G_A.pt" # replace with your own G_A model path
-        self.model_path_G_B = "/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/production_G_B.pt" # replace with your own G_B model path
+        self.destination_folder = r"/home/david/workingDIR/datasets_pro_test/denoised_1x" # replace with your own destination path
+        self.root_test_folder_A = r"/home/david/workingDIR/datasets_pro_test/testset_A" # replace with your own domain A path
+        self.root_test_folder_B = r"/home/david/workingDIR/datasets_pro_test/testset_B" # replace with your own domain B path
+        self.model_path_G_A = r"/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/production_G_A.pt" # replace with your own G_A model path
+        self.model_path_G_B = r"/home/david/workingDIR/pytorch-CycleGAN-and-pix2pix/checkpoints_scripted/production_G_B.pt" # replace with your own G_B model path
         self.model_name = "cGAN_v1"
         self.inference_type = "fake_B"  # Options: 'fake_B', 'rec_A', 'fake_A', 'rec_B'
         self.cycle_gan = True  # Option to decide if CycleGAN model is used
@@ -84,7 +84,7 @@ def run_inference(cfg, netG_A, netG_B, input_dir, device, destination_test_folde
                 image_path = os.path.join(input_dir, file)
                 tensor_images = process_image(image_path, device)
 
-                with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], record_shapes=True) as prof:
+                with profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA] if torch.cuda.is_available() else [ProfilerActivity.CPU], record_shapes=True) as prof:
                     with record_function("model_inference"):
                         if cfg.cycle_gan:
                             if cfg.inference_type == 'fake_B':
@@ -111,8 +111,8 @@ def run_inference(cfg, netG_A, netG_B, input_dir, device, destination_test_folde
                 plt.imsave(os.path.join(destination_test_folder, output_file), output, cmap='gray')
 
     # Print profiling information
-    print(prof.key_averages().table(sort_by="cpu_time_total", row_limit=10))
-    print(prof.key_averages().table(sort_by="cuda_time_total", row_limit=10))
+    if 'prof' in locals():
+        print(prof.key_averages().table(sort_by="cpu_time_total", row_limit=10))
 
 def processing(cfg):
     input_dir_A = cfg.root_test_folder_A
@@ -121,7 +121,8 @@ def processing(cfg):
     path_creator(destination_test_folder)
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     print('Using {} device'.format(device))
-    print('GPU being used: ', torch.cuda.get_device_name(0))
+    if torch.cuda.is_available():
+        print('GPU being used: ', torch.cuda.get_device_name(0))
 
     # Load appropriate model based on inference type
     netG_A, netG_B = load_model(cfg, device)
