@@ -18,8 +18,12 @@ Now you can use the model class by specifying flag '--model dummy'.
 See our template model class 'template_model.py' for more details.
 """
 
+# models/__init__.py
+
 import importlib
 from models.base_model import BaseModel
+
+# The rest of the code remains unchanged
 
 
 def find_model_using_name(model_name):
@@ -65,3 +69,22 @@ def create_model(opt):
     instance = model(opt)
     print("model [%s] was created" % type(instance).__name__)
     return instance
+
+
+# def create_model(opt):
+#     """Create a model given the option.
+
+#     This function warps the class CustomDatasetDataLoader.
+#     This is the main interface between this package and 'train.py'/'test.py'
+
+#     Example:
+#         >>> from models import create_model
+#         >>> model = create_model(opt)
+#     """
+#     if opt.model == 'ddpm':
+#         return DDPMModel(opt)  # assuming DDPMModel is your class encapsulating DDPM logic
+#     else:
+#         model = find_model_using_name(opt.model)
+#         instance = model(opt)
+#         print("model [%s] was created" % type(instance).__name__)
+#         return instance

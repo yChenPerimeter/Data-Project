@@ -18,14 +18,13 @@ Date: 2024-10-07
 """
 
 import os
-import time
 import torch
 import wandb
 from PIL import Image
 from torch import optim
 from torch.utils.data import DataLoader, Dataset
 from torchvision import transforms
-from torchvision.utils import save_image
+from torchvision.utils import save_image, make_grid
 from denoising_diffusion_pytorch import Unet, GaussianDiffusion
 from ray import tune
 from ray.tune.schedulers import ASHAScheduler
@@ -89,23 +88,29 @@ def train_ddpm(config):
         print(f"End of Epoch {epoch+1}/{config['epochs']} - Avg Loss: {avg_loss:.4f}")
         wandb.log({"Avg Loss": avg_loss})
 
-        if (epoch + 1) % 10 == 0:
-            torch.save(model.state_dict(), f"/home/ychen/Documents/project/Data-Project/checkpoints/DDPM/ddpm_epoch_{epoch+1}.pth")
+        # Save checkpoint and sample images every 10 epochs
+        if (epoch + 1) % 5 == 0:
+            checkpoint_path = f"/home/ychen/Documents/project/Data-Project/checkpoints/DDPM/ddpm_epoch_{epoch+1}.pth"
+            torch.save(model.state_dict(), checkpoint_path)
             print(f"Model checkpoint saved at epoch {epoch+1}")
 
-    result_folder = "/home/ychen/Documents/project/Data-Project/results/DDPM/DDPM2"
-    os.makedirs(result_folder, exist_ok=True)
-    sampled_images = diffusion.sample(batch_size=4)
-    for idx, img in enumerate(sampled_images):
-        save_image(img, os.path.join(result_folder, f"sampled_image_{idx + 1}.png"))
-    print(f"Sampled images saved to '{result_folder}' folder.")
+            # Sample images and log to WandB
+            sampled_images = diffusion.sample(batch_size=4)
+            sample_grid = make_grid(sampled_images, nrow=2)
+            wandb.log({"Sampled Images": [wandb.Image(sample_grid, caption=f"Epoch {epoch+1}")]})
+            
+            # Optionally save images locally as well
+            result_folder = "/home/ychen/Documents/project/Data-Project/results/DDPM/DDPM2"
+            os.makedirs(result_folder, exist_ok=True)
+            for idx, img in enumerate(sampled_images):
+                save_image(img, os.path.join(result_folder, f"sampled_image_epoch{epoch+1}_{idx + 1}.png"))
 
 # Configure Ray Tune
 config = {
     "epochs": 10,
-    "batch_size": tune.choice([4, 8, 16]),
-    "lr": tune.loguniform(1e-5, 1e-3),
-    "timesteps": 1000,
+    "batch_size": tune.choice([8]), # with 128 size maximium, batch 8 , as 16  would run out of memory
+    "lr": tune.loguniform(1e-5,1e-3),
+    "timesteps": tune.choice([1000]), # can be 4000 or more
     "device": "cuda" if torch.cuda.is_available() else "cpu"
 }
 
@@ -113,7 +118,8 @@ config = {
 tune.run(
     train_ddpm,
     config=config,
-    resources_per_trial={"cpu": 2, "gpu": 1 if torch.cuda.is_available() else 0},
+    resources_per_trial={"cpu": 1, "gpu": 1 if torch.cuda.is_available() else 0},
     scheduler=ASHAScheduler(metric="Avg Loss", mode="min"),
     num_samples=10  # Number of hyperparameter samples to try
 )
+
