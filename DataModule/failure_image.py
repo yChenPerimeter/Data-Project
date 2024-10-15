@@ -54,7 +54,7 @@ if __name__ == "__main__":
 
     organize_images(csv_path, input_dir, output_dir)
 '''
-
+" This code is the second part of the afilure analysis.py. It writes the physical false negative images into a folder for analysis"
 import os
 import shutil
 import pandas as pd
