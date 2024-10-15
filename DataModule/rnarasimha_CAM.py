@@ -1,3 +1,4 @@
+"rnarasimha_CAM.py is a trial but the CAM has issues. Refer to ychen_CAM.py for the final debugged CAM version"
 import torch
 import torch.nn as nn
 from torchvision import transforms
