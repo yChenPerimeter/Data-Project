@@ -1,3 +1,5 @@
+
+"The directory "testA" inputted into the code has rec_A, rec_B, fake_A, and fake_B images all in the same folder. The code is written to compare rec_A with fake_B pairs and rec_B with fake_A pairs for the GAN images."
 import os
 import re
 import numpy as np
