@@ -1,3 +1,7 @@
+"The failure analysis process is 4 codes, 2 codes are in the imageassit branch and the other 2 
+"developed by me. This code write all the false negative images into an excel file with the sublcasses"
+
+
 import pandas as pd
 import numpy as np
 import os
