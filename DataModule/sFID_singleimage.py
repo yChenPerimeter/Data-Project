@@ -1,3 +1,4 @@
+"sFID_single.py, code does the same function as sFID_group_images.py but the images have to be manually inputted, so we can use this to compare sFID for any kind of images"
 import numpy as np
 import torch
 import torch.nn as nn
