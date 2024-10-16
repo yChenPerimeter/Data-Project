@@ -1,0 +1,5 @@
+ self.destination_folder = r"/home/ychen/Documents/project/Data-Project/results/DCIS_IDC_cyclegan/DCIS_IDC20240826CycleGAN_DCIS+splitedData"  # replace with your own destination path
+        self.root_test_folder_A = r"/home/ychen/Documents/project/Data-Project/datasets/object_dection_data/DCIS+_images_split_feature_wise"  # replace with your own domain A path
+        self.root_test_folder_B = ""  # replace with your own domain B path
+        self.model_path_G_A = r"/home/ychen/Documents/project/Data-Project/checkpoints_scripted/cycleGAN/DCIS_IDC_cyclegan_G_A_checkpoints_scriptedlatest.pt"  # replace with your own G_A model path
+        self.model_path_G_B = r"/home/ychen/Documents/project/Data-Project/checkpoints_scripted/cycleGAN/DCIS_IDC_cyclegan_G_B_checkpoints_scriptedlatest.pt"  # replace with your own G_B model path
