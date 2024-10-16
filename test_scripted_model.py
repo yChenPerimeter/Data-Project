@@ -38,11 +38,11 @@ class Constants:
     def __init__(self):
         self.destination_folder = r"/home/ychen/Documents/project/Data-Project/results/DCIS_IDC_cyclegan/DCIS_IDC20240826CycleGAN_DCIS+splitedData"  # replace with your own destination path
         self.root_test_folder_A = r"/home/ychen/Documents/project/Data-Project/datasets/object_dection_data/DCIS+_images_split_feature_wise"  # replace with your own domain A path
-        self.root_test_folder_B = ""  # replace with your own domain B path
+        self.root_test_folder_B =  r"/home/ychen/Documents/project/Data-Project/datasets/object_dection_data/DCIS+_images_split_feature_wise"  # replace with your own domain B path
         self.model_path_G_A = r"/home/ychen/Documents/project/Data-Project/checkpoints_scripted/cycleGAN/DCIS_IDC_cyclegan_G_A_checkpoints_scriptedlatest.pt"  # replace with your own G_A model path
         self.model_path_G_B = r"/home/ychen/Documents/project/Data-Project/checkpoints_scripted/cycleGAN/DCIS_IDC_cyclegan_G_B_checkpoints_scriptedlatest.pt"  # replace with your own G_B model path
         self.model_name = "cycleGAN_DCIS_IDC"
-        self.inference_types = ["fake_B", "rec_A", "fake_A", "rec_B"]  # Options: 'fake_B', 'rec_A', 'fake_A', 'rec_B'
+        self.inference_types = ["fake_B", "fake_A"]  # Options: 'fake_B', 'rec_A', 'fake_A', 'rec_B'
         self.cycle_gan = True  # Option to decide if CycleGAN model is used
         self.preserve_structure = True  # Option to preserve original folder structure
         self.compress_results = True  # Option to compress the destination folder after processing
