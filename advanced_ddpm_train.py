@@ -285,7 +285,7 @@ def test_best_model(best_checkpoint):
  
 
     # save the best model checkpoint to local directory #TODO change the path to your desired path assoicate with project name or something
-    checkpoint_dir = best_checkpoint.checkpoint.to_directory("/home/ychen/Documents/project/Data-Project/checkpoints/ray_DDPM")
+    checkpoint_dir = best_checkpoint.to_directory("/home/ychen/Documents/project/Data-Project/checkpoints/ray_DDPM")
     print("local checkpoint_dir is: ",checkpoint_dir)
     
 
@@ -295,4 +295,4 @@ def test_best_model(best_checkpoint):
 # Run main function
 if __name__ == "__main__":
     # num_samples: Number of times to sample from the hyperparameter space. 
-    main(num_samples=1, max_num_epochs=10, gpus_per_trial=1)
+    main(num_samples=1, max_num_epochs=300, gpus_per_trial=1)
